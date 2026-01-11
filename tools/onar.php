@@ -3,9 +3,11 @@
  * SpeedPage - Onarım ve Sistem Bakım Dosyası
  * Bu araç sistemdeki kritik sorunları tespit eder ve tek tıkla onarır.
  */
-
+/**
+ * SpeedPage v0.2 Alpha - Onarım ve Sistem Bakım Dosyası
+ */
 // 1. Ayarları Yükle
-$settingsPath = __DIR__ . '/../../settings.php';
+$settingsPath = __DIR__ . '/settings.php';
 if (file_exists($settingsPath)) {
     require_once $settingsPath;
 } else {
@@ -33,6 +35,7 @@ function fix_folders()
         ROOT_DIR . 'modules',
         ROOT_DIR . 'cdn/images',
         ROOT_DIR . 'admin/veritabanı',
+        ROOT_DIR . 'admin/_backups', // Yeni yedekleme klasörü
         ROOT_DIR . 'media',
     ];
     $created = 0;
@@ -44,7 +47,28 @@ function fix_folders()
     }
     return $created;
 }
+function fix_database($db)
+{
+    // AI Tabloları ve diğer eksik yapıların kontrolü
+    $queries = [
+        "CREATE TABLE IF NOT EXISTS ai_settings (key_name TEXT PRIMARY KEY, value_text TEXT)",
+        "CREATE TABLE IF NOT EXISTS ai_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, action TEXT, model TEXT, prompt TEXT, response TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)",
+        "CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, action TEXT, details TEXT, ip_address TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)"
+    ];
 
+    foreach ($queries as $q) {
+        $db->exec($q);
+    }
+
+    // Varsayılan AI ayarlarını kontrol et ve ekle
+    $check = $db->query("SELECT COUNT(*) FROM ai_settings WHERE key_name = 'selected_model'")->fetchColumn();
+    if ($check == 0) {
+        $db->exec("INSERT INTO ai_settings (key_name, value_text) VALUES ('selected_model', 'google/gemini-2.0-flash-exp')");
+        $db->exec("INSERT INTO ai_settings (key_name, value_text) VALUES ('custom_models', '[]')");
+    }
+
+    return true;
+}
 /**
  * Geçici yükleme klasörlerini temizler.
  */
@@ -101,6 +125,8 @@ function recover_admin()
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['auto_fix'])) {
         $fCount = fix_folders();
+        $f = fix_folders();
+        $d = fix_database($db);
         $tCount = clean_tmp_folders();
         $dbFix = fix_database_locks();
         $message = "Sistem onarımı tamamlandı. $fCount klasör oluşturuldu, $tCount geçici klasör temizlendi.";
@@ -351,7 +377,7 @@ foreach ($protected_files as $dir => $files) {
             <a href="../../admin/index.php" class="text-white-50 text-decoration-none small"><i
                     class="fas fa-arrow-left me-1"></i> Panele Geri Dön</a>
             <span class="mx-3 opacity-25">|</span>
-            <small class="text-white-25">SpeedPage Onarım Aracı v2.0</small>
+            <small>SpeedPage Repair Tool <span class="badge bg-primary">v0.2 Alpha</span></small>
         </div>
     </div>
 
