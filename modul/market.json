@@ -1,0 +1,35 @@
+[
+  {
+    "id": "kitaplik",
+    "title": "epub kitaplik",
+    "version": "1.0.0",
+    "type": "basic",
+    "author": "snrj35",
+    "date": "2026-01-01",
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/kitaplik.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/kitaplik.zip",
+    "description": "epub.js kulanan basit kitap okuma"
+  },
+  {
+    "id": "mediacenter",
+    "title": "Media Center",
+    "version": "1.0.0",
+    "type": "basic",
+    "author": "snrj35",
+    "date": "2026-01-02",
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/mediacenter.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/mediacenter.zip",
+    "description": "Basit Media oyanatıcı."
+  },
+  {
+    "id": "musicbox",
+    "title": "Müzik Kutusu",
+    "version": "1.0.0",
+    "type": "basic",
+    "author": "snrj35",
+    "date": "2026-01-03",
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/musicbox.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/musicbox.zip",
+    "description": "Basit Müzik Player."
+  }
+]
