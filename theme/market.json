@@ -1,0 +1,24 @@
+[
+  {
+    "id": "aurazen",
+    "title": "AuraZen Theme",
+    "version": "1.0.0",
+    "type": "minimalist",
+    "author": "snrj35",
+    "date": "2026-01-02",
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/AuraZen.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/AuraZen.zip",
+    "description": "Minimalist ve huzurlu bir tasarım."
+  },
+  {
+    "id": "fantastik",
+    "title": "Fantastik Dark",
+    "version": "1.0.0",
+    "type": "modern",
+    "author": "snrj35",
+    "date": "2026-01-01",
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/fantastik.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/fantastik.zip",
+    "description": "Oyuncular için karanlık mod odaklı tema."
+  }
+]
