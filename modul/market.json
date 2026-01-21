@@ -6,6 +6,7 @@
     "type": "basic",
     "author": "snrj35",
     "date": "2026-01-01",
+    "featured": false,
     "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/kitaplik.png",
     "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/kitaplik.zip",
     "description": "epub.js kulanan basit kitap okuma"
@@ -17,6 +18,7 @@
     "type": "basic",
     "author": "snrj35",
     "date": "2026-01-02",
+    "featured": false,
     "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/mediacenter.png",
     "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/mediacenter.zip",
     "description": "Basit Media oyanatıcı."
@@ -28,6 +30,7 @@
     "type": "basic",
     "author": "snrj35",
     "date": "2026-01-03",
+    "featured": false,
     "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/musicbox.png",
     "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/musicbox.zip",
     "description": "Basit Müzik Player."
