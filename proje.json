@@ -6,600 +6,1275 @@
         "status": "Live/Remote",
         "repo": "SpeedPage-modul-theme"
     },
+    "ui": {
+        "tr": {
+            "title": "SpeedPage Dev-Bot",
+            "welcome": "Selam! Ben SpeedPage asistanı. Sana nasıl yardımcı olabilirim?",
+            "inputPlaceholder": "Bir şey sor (örn: market, modül)...",
+            "marketBtn": "🛒 Market",
+            "filesBtn": "🗂️ Dosyalar",
+            "wizardBtn": "🧙‍♂️ Sihirbaz",
+            "templateBtn": "📄 Şablon",
+            "typing": "Asistan yazıyor...",
+            "fileGuide": "🔍 Dosya Rehberi...",
+            "technicalRef": "Teknik Referans",
+            "wizardTitle": "Modül Sihirbazı",
+            "wizardName": "Modül Adı (örn: my-plugin)",
+            "wizardHeader": "Görünür Başlık",
+            "wizardPermAdmin": "Admin Yetkisi",
+            "wizardPermEditor": "Editör Yetkisi",
+            "wizardPermPublic": "Herkes",
+            "wizardSubmit": "Oluştur & Gönder"
+        },
+        "en": {
+            "title": "SpeedPage Dev-Bot",
+            "welcome": "Hi! I am the SpeedPage assistant. How can I help you today?",
+            "inputPlaceholder": "Ask something (e.g., market, module)...",
+            "marketBtn": "🛒 Market",
+            "filesBtn": "🗂️ Files",
+            "wizardBtn": "🧙‍♂️ Wizard",
+            "templateBtn": "📄 Template",
+            "typing": "Assistant is typing...",
+            "fileGuide": "🔍 File Guide...",
+            "technicalRef": "Technical Reference",
+            "wizardTitle": "Module Wizard",
+            "wizardName": "Module Name (e.g., my-plugin)",
+            "wizardHeader": "Visible Title",
+            "wizardPermAdmin": "Admin Permission",
+            "wizardPermEditor": "Editor Permission",
+            "wizardPermPublic": "Public",
+            "wizardSubmit": "Create & Send"
+        }
+    },
     "faq": [
         {
-            "keywords": [
-                "module.json",
-                "modül yapısı",
-                "kimlik kartı"
-            ],
-            "answer": "module.json, modülün beynidir. İçinde modül adı, versiyonu, yetkiler (permissions) ve yüklenecek assetler tanımlanır.",
+            "keywords": {
+                "tr": [
+                    "module.json",
+                    "modül yapısı",
+                    "kimlik kartı"
+                ],
+                "en": [
+                    "module.json",
+                    "module structure",
+                    "id card"
+                ]
+            },
+            "answer": {
+                "tr": "module.json, modülün beynidir. İçinde modül adı, versiyonu, yetkiler (permissions) ve yüklenecek assetler tanımlanır.",
+                "en": "module.json is the brain of the module. It defines the module name, version, permissions, and assets to be loaded."
+            },
             "file": "module.json"
         },
         {
-            "keywords": [
-                "kurulum",
-                "install",
-                "nasıl kurulur"
-            ],
-            "answer": "Dosyaları yükle ve tarayıcıda aç. install.php seni karşılayacak. SQLite veya MySQL seçebilirsin.",
+            "keywords": {
+                "tr": [
+                    "kurulum",
+                    "install",
+                    "nasıl kurulur"
+                ],
+                "en": [
+                    "installation",
+                    "install",
+                    "how to install"
+                ]
+            },
+            "answer": {
+                "tr": "Dosyaları yükle ve tarayıcıda aç. install.php seni karşılayacak. SQLite veya MySQL seçebilirsin.",
+                "en": "Upload the files and open in a browser. install.php will greet you. You can choose between SQLite or MySQL."
+            },
             "file": "install.php"
         },
         {
-            "keywords": [
-                "yetki",
-                "permission",
-                "erişim"
-            ],
-            "answer": "module.json içinde 'permissions' dizisine ['admin', 'editor'] gibi roller ekleyerek modül erişimini kısıtlayabilirsiniz.",
+            "keywords": {
+                "tr": [
+                    "yetki",
+                    "permission",
+                    "erişim"
+                ],
+                "en": [
+                    "permission",
+                    "access",
+                    "auth"
+                ]
+            },
+            "answer": {
+                "tr": "module.json içinde 'permissions' dizisine ['admin', 'editor'] gibi roller ekleyerek modül erişimini kısıtlayabilirsiniz.",
+                "en": "You can restrict module access by adding roles like ['admin', 'editor'] to the 'permissions' array in module.json."
+            },
             "file": "module.json"
         },
         {
-            "keywords": [
-                "module.json",
-                "modül standartı",
-                "kimlik kartı",
-                "yeni yapı"
-            ],
-            "answer": "module.json artık modülün tam yetki ve yaşam döngüsünü yönetiyor. 'permissions' ile RBAC (Rol Bazlı Erişim), 'db_setup' ile gelişmiş PHP kurulum scriptleri ve 'admin_assets' ile sadece panelde çalışan CSS/JS yönetimi geldi.",
+            "keywords": {
+                "tr": [
+                    "module.json",
+                    "modül standartı",
+                    "kimlik kartı",
+                    "yeni yapı"
+                ],
+                "en": [
+                    "module.json",
+                    "module standard",
+                    "identity card",
+                    "new structure"
+                ]
+            },
+            "answer": {
+                "tr": "module.json artık modülün tam yetki ve yaşam döngüsünü yönetiyor. 'permissions' ile RBAC (Rol Bazlı Erişim), 'db_setup' ile gelişmiş PHP kurulum scriptleri ve 'admin_assets' ile sadece panelde çalışan CSS/JS yönetimi geldi.",
+                "en": "module.json now manages the full authority and lifecycle of the module. RBAC (Role Based Access) with 'permissions', advanced PHP installation scripts with 'db_setup', and 'admin_assets' that work only in the panel are introduced."
+            },
             "file": "module.json"
         },
         {
-            "keywords": [
-                "permissions",
-                "yetki",
-                "rol"
-            ],
-            "answer": "Modül güvenliği 'permissions': ['admin', 'editor'] dizisiyle sağlanır. Bu roller dışındaki kullanıcılar modül sayfasına erişemez ve menüleri göremez.",
+            "keywords": {
+                "tr": [
+                    "permissions",
+                    "yetki",
+                    "rol"
+                ],
+                "en": [
+                    "permissions",
+                    "authority",
+                    "role"
+                ]
+            },
+            "answer": {
+                "tr": "Modül güvenliği 'permissions': ['admin', 'editor'] dizisiyle sağlanır. Bu roller dışındaki kullanıcılar modül sayfasına erişemez ve menüleri göremez.",
+                "en": "Module security is provided by the 'permissions': ['admin', 'editor'] array. Users outside these roles cannot access module pages or see menus."
+            },
             "file": "module.json"
         },
         {
-            "keywords": [
-                "db_setup",
-                "kurulum scripti",
-                "install",
-                "uninstall"
-            ],
-            "answer": "Artık sadece SQL değil, 'install' ve 'uninstall' alanlarına PHP dosyaları bağlayarak modül yüklenirken veya silinirken karmaşık mantıklar çalıştırabilirsiniz.",
+            "keywords": {
+                "tr": [
+                    "db_setup",
+                    "kurulum scripti",
+                    "install",
+                    "uninstall"
+                ],
+                "en": [
+                    "db_setup",
+                    "install script",
+                    "uninstall",
+                    "scripts"
+                ]
+            },
+            "answer": {
+                "tr": "Artık sadece SQL değil, 'install' ve 'uninstall' alanlarına PHP dosyaları bağlayarak modül yüklenirken veya silinirken karmaşık mantıklar çalıştırabilirsiniz.",
+                "en": "Now, not only SQL, but by binding PHP files to the 'install' and 'uninstall' fields, you can run complex logic when the module is being installed or deleted."
+            },
             "file": "admin/modul-func.php"
         },
         {
-            "keywords": [
-                "db_setup",
-                "veritabanı",
-                "tablo"
-            ],
-            "answer": "Modül yüklenirken otomatik tablo oluşturmak için 'db_setup' içindeki 'install' kısmına setup.php dosyanı bağlamalısın.",
+            "keywords": {
+                "tr": [
+                    "db_setup",
+                    "veritabanı",
+                    "tablo"
+                ],
+                "en": [
+                    "db_setup",
+                    "database",
+                    "table"
+                ]
+            },
+            "answer": {
+                "tr": "Modül yüklenirken otomatik tablo oluşturmak için 'db_setup' içindeki 'install' kısmına setup.php dosyanı bağlamalısın.",
+                "en": "To automatically create a table while the module is being installed, you should bind your setup.php file to the 'install' part within 'db_setup'."
+            },
             "file": "modul-func.php"
         },
         {
-            "keywords": [
-                "asset",
-                "css",
-                "js",
-                "yükleme"
-            ],
-            "answer": "Üç tip asset yükleme var: 'admin_assets' (admin), 'pageassets' (frontend) ve 'hooksassets' (global).",
+            "keywords": {
+                "tr": [
+                    "asset",
+                    "css",
+                    "js",
+                    "yükleme"
+                ],
+                "en": [
+                    "asset",
+                    "css",
+                    "js",
+                    "loading"
+                ]
+            },
+            "answer": {
+                "tr": "Üç tip asset yükleme var: 'admin_assets' (admin), 'pageassets' (frontend) ve 'hooksassets' (global).",
+                "en": "There are three types of asset loading: 'admin_assets' (admin), 'pageassets' (frontend), and 'hooksassets' (global)."
+            },
             "file": "module.json"
         },
         {
-            "keywords": [
-                "ai",
-                "yapay zeka",
-                "asistan"
-            ],
-            "answer": "SpeedPage Admin Panelinde OpenRouter/OpenAI destekli bir AI asistanı bulunur. Hataları analiz eder.",
+            "keywords": {
+                "tr": [
+                    "ai",
+                    "yapay zeka",
+                    "asistan"
+                ],
+                "en": [
+                    "ai",
+                    "artificial intelligence",
+                    "assistant"
+                ]
+            },
+            "answer": {
+                "tr": "SpeedPage Admin Panelinde OpenRouter/OpenAI destekli bir AI asistanı bulunur. Hataları analiz eder.",
+                "en": "In the SpeedPage Admin Panel, there is an AI assistant supported by OpenRouter/OpenAI. It analyzes errors."
+            },
             "file": "AiCore.php"
         },
         {
-            "keywords": [
-                "market",
-                "mağaza",
-                "indir"
-            ],
-            "answer": "SpeedPage Market, GitHub üzerinden en güncel modül ve temaları çekmenizi sağlar.",
+            "keywords": {
+                "tr": [
+                    "market",
+                    "mağaza",
+                    "indir"
+                ],
+                "en": [
+                    "market",
+                    "store",
+                    "download"
+                ]
+            },
+            "answer": {
+                "tr": "SpeedPage Market, GitHub üzerinden en güncel modül ve temaları çekmenizi sağlar.",
+                "en": "SpeedPage Market allows you to pull the most up-to-date modules and themes via GitHub."
+            },
             "file": "market.json"
         },
         {
-            "keywords": [
-                "settings.php",
-                "configuration",
-                "initialization",
-                "localization"
-            ],
-            "answer": "Projenin temel yapılandırma dosyasıdır. Oturum yönetimini (session), hata raporlamayı, global sabitleri (BASE_URL, ROOT_DIR vb.), XSS koruma yardımcılarını ve çoklu dil (i18n) sistemini başlatır.",
+            "keywords": {
+                "tr": [
+                    "settings.php",
+                    "yapılandırma",
+                    "başlatma",
+                    "yerelleştirme"
+                ],
+                "en": [
+                    "settings.php",
+                    "configuration",
+                    "initialization",
+                    "localization"
+                ]
+            },
+            "answer": {
+                "tr": "Projenin temel yapılandırma dosyasıdır. Oturum yönetimini (session), hata raporlamayı, global sabitleri (BASE_URL, ROOT_DIR vb.), XSS koruma yardımcılarını ve çoklu dil (i18n) sistemini başlatır.",
+                "en": "The basic configuration file of the project. It starts session management, error reporting, global constants (BASE_URL, ROOT_DIR etc.), XSS protection helpers, and the multi-language (i18n) system."
+            },
             "file": "settings.php"
         },
         {
-            "keywords": [
-                "index.php",
-                "front-controller",
-                "bootstrapping",
-                "theme-engine"
-            ],
-            "answer": "Uygulamanın ana giriş noktasıdır. Veritabanı kontrolü, kurulum yönlendirmesi, global modül varlıklarının (JS/CSS) yüklenmesi, tema parçalarının (header, navbar, footer) birleştirilmesi ve kanca (hook) sisteminin tetiklenmesi görevlerini üstlenir.",
+            "keywords": {
+                "tr": [
+                    "index.php",
+                    "ana kontrolcü",
+                    "önyükleme",
+                    "tema motoru"
+                ],
+                "en": [
+                    "index.php",
+                    "front-controller",
+                    "bootstrapping",
+                    "theme-engine"
+                ]
+            },
+            "answer": {
+                "tr": "Uygulamanın ana giriş noktasıdır. Veritabanı kontrolü, kurulum yönlendirmesi, global modül varlıklarının (JS/CSS) yüklenmesi, tema parçalarının (header, navbar, footer) birleştirilmesi ve kanca (hook) sisteminin tetiklenmesi görevlerini üstlenir.",
+                "en": "The main entry point of the application. It handles database checks, installation redirection, loading of global module assets (JS/CSS), merging theme parts (header, navbar, footer), and triggering the hook system."
+            },
             "file": "index.php"
         },
         {
-            "keywords": [
-                "page.php",
-                "SPA API",
-                "content-rendering",
-                "dynamic-assets"
-            ],
-            "answer": "Sistemin dinamik içerik sunucusudur. Slug (sayfa kısa adı) üzerinden veritabanını, modülleri ve tema dosyalarını tarayarak uygun içeriği bulur; PHP kodlarını güvenli bir geçici alanda çalıştırarak sonucu JSON olarak döndürür.",
+            "keywords": {
+                "tr": [
+                    "page.php",
+                    "SPA API",
+                    "içerik işleme",
+                    "dinamik varlıklar"
+                ],
+                "en": [
+                    "page.php",
+                    "SPA API",
+                    "content-rendering",
+                    "dynamic-assets"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin dinamik içerik sunucusudur. Slug (sayfa kısa adı) üzerinden veritabanını, modülleri ve tema dosyalarını tarayarak uygun içeriği bulur; PHP kodlarını güvenli bir geçici alanda çalıştırarak sonucu JSON olarak döndürür.",
+                "en": "The system's dynamic content server. It finds the appropriate content by scanning the database, modules, and theme files via slug (page short name); it runs PHP codes in a secure temporary area and returns the result as JSON."
+            },
             "file": "page.php"
         },
         {
-            "keywords": [
-                "install.php",
-                "database-schema",
-                "setup-wizard",
-                "SQL-injection"
-            ],
-            "answer": "Sistemi sıfırdan kurmak veya mevcut ayarları güncellemek için kullanılır. Veritabanı tablolarını oluşturur (SQLite/MySQL), admin kullanıcısını tanımlar ve settings.php dosyasını otomatik olarak oluşturur.",
+            "keywords": {
+                "tr": [
+                    "install.php",
+                    "veritabanı şeması",
+                    "kurulum sihirbazı",
+                    "SQL enjeksiyonu"
+                ],
+                "en": [
+                    "install.php",
+                    "database-schema",
+                    "setup-wizard",
+                    "SQL-injection"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemi sıfırdan kurmak veya mevcut ayarları güncellemek için kullanılır. Veritabanı tablolarını oluşturur (SQLite/MySQL), admin kullanıcısını tanımlar ve settings.php dosyasını otomatik olarak oluşturur.",
+                "en": "Used to install the system from scratch or update existing settings. It creates database tables (SQLite/MySQL), defines the admin user, and automatically creates the settings.php file."
+            },
             "file": "install.php"
         },
         {
-            "keywords": [
-                "manifest.json",
-                "PWA",
-                "web-app-manifest",
-                "installable"
-            ],
-            "answer": "Tarayıcıya uygulamanın nasıl görüneceğini ve yüklendiğinde nasıl davranacağını söyleyen yapılandırma dosyasıdır. Uygulama adı, ikonlar, başlangıç URL'si ve tema renkleri burada tanımlanır.",
+            "keywords": {
+                "tr": [
+                    "manifest.json",
+                    "PWA",
+                    "web bildirimi",
+                    "yüklenebilir"
+                ],
+                "en": [
+                    "manifest.json",
+                    "PWA",
+                    "web-app-manifest",
+                    "installable"
+                ]
+            },
+            "answer": {
+                "tr": "Tarayıcıya uygulamanın nasıl görüneceğini ve yüklendiğinde nasıl davranacağını söyleyen yapılandırma dosyasıdır. Uygulama adı, ikonlar, başlangıç URL'si ve tema renkleri burada tanımlanır.",
+                "en": "The configuration file that tells the browser how the application will look and how it will behave when installed. Application name, icons, start URL, and theme colors are defined here."
+            },
             "file": "manifest.json"
         },
         {
-            "keywords": [
-                "service-worker.js",
-                "offline-cache",
-                "PWA-worker",
-                "caching-strategy"
-            ],
-            "answer": "Tarayıcı ile sunucu arasında duran bir proxy gibi çalışır. Dosyaları önbelleğe alır (cache) ve internet kesildiğinde bile sitenin açılmasını, varlıkların (CSS/JS) anında yüklenmesini sağlar.",
+            "keywords": {
+                "tr": [
+                    "service-worker.js",
+                    "çevrimdışı önbellek",
+                    "PWA çalışanı",
+                    "önbellekleme stratejisi"
+                ],
+                "en": [
+                    "service-worker.js",
+                    "offline-cache",
+                    "PWA-worker",
+                    "caching-strategy"
+                ]
+            },
+            "answer": {
+                "tr": "Tarayıcı ile sunucu arasında duran bir proxy gibi çalışır. Dosyaları önbelleğe alır (cache) ve internet kesildiğinde bile sitenin açılmasını, varlıkların (CSS/JS) anında yüklenmesini sağlar.",
+                "en": "Operates like a proxy standing between the browser and the server. It caches files and ensures the site opens and assets (CSS/JS) load instantly even when the internet is disconnected."
+            },
             "file": "service-worker.js"
         },
         {
-            "keywords": [
-                "db.php",
-                "database-connection",
-                "PDO-instance",
-                "centralized-db"
-            ],
-            "answer": "Sistemin veritabanı bağlantı merkezidir. settings.php'deki yapılandırmayı okur, DB_Switch sınıfını kullanarak uygun PDO bağlantısını başlatır ve bu bağlantıyı global $db değişkenine atayarak tüm sistemin kullanımına sunar.",
+            "keywords": {
+                "tr": [
+                    "db.php",
+                    "veritabanı bağlantısı",
+                    "PDO örneği",
+                    "merkezi veritabanı"
+                ],
+                "en": [
+                    "db.php",
+                    "database-connection",
+                    "PDO-instance",
+                    "centralized-db"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin veritabanı bağlantı merkezidir. settings.php'deki yapılandırmayı okur, DB_Switch sınıfını kullanarak uygun PDO bağlantısını başlatır ve bu bağlantıyı global $db değişkenine atayarak tüm sistemin kullanımına sunar.",
+                "en": "The database connection center of the system. It reads the configuration in settings.php, starts the appropriate PDO connection using the DB_Switch class, and assigns this connection to the global $db variable for use by the entire system."
+            },
             "file": "admin/db.php"
         },
         {
-            "keywords": [
-                "db_switch.php",
-                "DB_Switch-class",
-                "database-abstraction",
-                "agnostic-sql"
-            ],
-            "answer": "Veritabanı sürücüleri (SQLite ve MySQL) arasında bir köprü görevi gören soyutlama sınıfıdır. Tablo listeleme, tablo silme gibi işlemleri kullanılan veritabanı türüne göre (agnostic) otomatik olarak gerçekleştirir.",
+            "keywords": {
+                "tr": [
+                    "db_switch.php",
+                    "DB_Switch sınıfı",
+                    "veritabanı soyutlama",
+                    "veritabanından bağımsız SQL"
+                ],
+                "en": [
+                    "db_switch.php",
+                    "DB_Switch-class",
+                    "database-abstraction",
+                    "agnostic-sql"
+                ]
+            },
+            "answer": {
+                "tr": "Veritabanı sürücüleri (SQLite ve MySQL) arasında bir köprü görevi gören soyutlama sınıfıdır. Tablo listeleme, tablo silme gibi işlemleri kullanılan veritabanı türüne göre (agnostic) otomatik olarak gerçekleştirir.",
+                "en": "An abstraction class acting as a bridge between database drivers (SQLite and MySQL). It automatically performs operations such as listing tables and deleting tables according to the database type used (agnostic)."
+            },
             "file": "admin/db_switch.php"
         },
         {
-            "keywords": [
-                "admin/index.php",
-                "admin-controller",
-                "permission-check",
-                "dynamic-admin-content"
-            ],
-            "answer": "Yönetim panelinin ana kontrol merkezidir. Kullanıcı yetkilerini (auth.php) kontrol eder, temayı ayarlar ve URL'deki 'action' parametresine göre ilgili panel dosyasını (dashboard, user, settings vb.) veya modülün admin arayüzünü yükler.",
+            "keywords": {
+                "tr": [
+                    "admin/index.php",
+                    "yönetim kontrolcüsü",
+                    "yetki kontrolü",
+                    "dinamik yönetim içeriği"
+                ],
+                "en": [
+                    "admin/index.php",
+                    "admin-controller",
+                    "permission-check",
+                    "dynamic-admin-content"
+                ]
+            },
+            "answer": {
+                "tr": "Yönetim panelinin ana kontrol merkezidir. Kullanıcı yetkilerini (auth.php) kontrol eder, temayı ayarlar ve URL'deki 'action' parametresine göre ilgili panel dosyasını (dashboard, user, settings vb.) veya modülün admin arayüzünü yükler.",
+                "en": "The main control center of the management panel. It checks user permissions (auth.php), sets the theme, and loads the relevant panel file (dashboard, user, settings etc.) or the module's admin interface according to the 'action' parameter in the URL."
+            },
             "file": "admin/index.php"
         },
         {
-            "keywords": [
-                "AiCore",
-                "AI-Engine",
-                "Tool-Registration",
-                "Log-System"
-            ],
-            "answer": "Sistemin AI çekirdek sınıfıdır. Farklı AI sağlayıcılarını (Gemini, OpenRouter vb.) yönetir, AI için kullanılabilir araçları (dosya okuma, yazma) kaydeder ve tüm AI etkileşimlerini (token kullanımı dahil) veritabanına loglar.",
+            "keywords": {
+                "tr": [
+                    "AiCore",
+                    "AI motoru",
+                    "araç kaydı",
+                    "günlük sistemi"
+                ],
+                "en": [
+                    "AiCore",
+                    "AI-Engine",
+                    "Tool-Registration",
+                    "Log-System"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin AI çekirdek sınıfıdır. Farklı AI sağlayıcılarını (Gemini, OpenRouter vb.) yönetir, AI için kullanılabilir araçları (dosya okuma, yazma) kaydeder ve tüm AI etkileşimlerini (token kullanımı dahil) veritabanına loglar.",
+                "en": "The AI core class of the system. It manages different AI providers (Gemini, OpenRouter etc.), registers available devices for AI (file reading, writing), and logs all AI interactions (including token usage) to the database."
+            },
             "file": "admin/AiCore.php"
         },
         {
-            "keywords": [
-                "ai-panel",
-                "UI-Interface",
-                "Chat-UI",
-                "Code-Diff"
-            ],
-            "answer": "Kullanıcının AI asistanı ile etkileşime girdiği yönetim paneli arayüzüdür. Sohbet ekranı, model seçimi ve AI tarafından üretilen kodların mevcut kodla karşılaştırıldığı 'Diff' (fark) görünümünü sunar.",
+            "keywords": {
+                "tr": [
+                    "ai-panel",
+                    "kullanıcı arayüzü",
+                    "sohbet arayüzü",
+                    "kod farkı"
+                ],
+                "en": [
+                    "ai-panel",
+                    "UI-Interface",
+                    "Chat-UI",
+                    "Code-Diff"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcının AI asistanı ile etkileşime girdiği yönetim paneli arayüzüdür. Sohbet ekranı, model seçimi ve AI tarafından üretilen kodların mevcut kodla karşılaştırıldığı 'Diff' (fark) görünümünü sunar.",
+                "en": "The management panel interface where the user interacts with the AI assistant. It offers a chat screen, model selection, and a 'Diff' (difference) view where codes generated by AI are compared with existant code."
+            },
             "file": "admin/ai-panel.php"
         },
         {
-            "keywords": [
-                "aisistem",
-                "AI-Controller",
-                "Code-Execution",
-                "Syntax-Check"
-            ],
-            "answer": "AI panelinden gelen AJAX isteklerini işleyen ana kontrolcüdür (Backend Controller). Dosya okuma, kod yazma ve yazılan kodun PHP sentaks hatası olup olmadığını (PHP Lint) kontrol etme gibi kritik görevleri yürütür.",
+            "keywords": {
+                "tr": [
+                    "aisistem",
+                    "AI kontrolcüsü",
+                    "kod yürütme",
+                    "sentaks kontrolü"
+                ],
+                "en": [
+                    "aisistem",
+                    "AI-Controller",
+                    "Code-Execution",
+                    "Syntax-Check"
+                ]
+            },
+            "answer": {
+                "tr": "AI panelinden gelen AJAX isteklerini işleyen ana kontrolcüdür (Backend Controller). Dosya okuma, kod yazma ve yazılan kodun PHP sentaks hatası olup olmadığını (PHP Lint) kontrol etme gibi kritik görevleri yürütür.",
+                "en": "The main controller (Backend Controller) processing AJAX requests from the AI panel. It performs critical tasks such as file reading, code writing, and checking if the written code has a PHP syntax error (PHP Lint)."
+            },
             "file": "admin/aisistem.php"
         },
         {
-            "keywords": [
-                "auth.php",
-                "session-control",
-                "RBAC",
-                "CSRF-init"
-            ],
-            "answer": "Yönetim paneline erişimi kontrol eden güvenlik kapısıdır. Oturum kontrolü yapar, CSRF token üretir, XSS koruma yardımcısını (e()) tanımlar ve kullanıcı rollerini (admin/editor) belirler.",
+            "keywords": {
+                "tr": [
+                    "auth.php",
+                    "oturum kontrolü",
+                    "RBAC",
+                    "CSRF başlatma"
+                ],
+                "en": [
+                    "auth.php",
+                    "session-control",
+                    "RBAC",
+                    "CSRF-init"
+                ]
+            },
+            "answer": {
+                "tr": "Yönetim paneline erişimi kontrol eden güvenlik kapısıdır. Oturum kontrolü yapar, CSRF token üretir, XSS koruma yardımcısını (e()) tanımlar ve kullanıcı rollerini (admin/editor) belirler.",
+                "en": "The security gate controlling access to the management panel. It performs session control, generates CSRF tokens, defines the XSS protection helper (e()), and determines user roles (admin/editor)."
+            },
             "file": "admin/auth.php"
         },
         {
-            "keywords": [
-                "browser-islem",
-                "File-Management",
-                "Path-Traversal",
-                "Upload-Security"
-            ],
-            "answer": "File Browser panelinden gelen dosya ve klasör işlemlerini (listeleme, silme, oluşturma, yükleme, düzenleme) yürüten backend motorudur. Sunucu dosya sistemiyle doğrudan etkileşime girer.",
+            "keywords": {
+                "tr": [
+                    "browser-islem",
+                    "dosya yönetimi",
+                    "dizin gezintisi",
+                    "yükleme güvenliği"
+                ],
+                "en": [
+                    "browser-islem",
+                    "File-Management",
+                    "Path-Traversal",
+                    "Upload-Security"
+                ]
+            },
+            "answer": {
+                "tr": "File Browser panelinden gelen dosya ve klasör işlemlerini (listeleme, silme, oluşturma, yükleme, düzenleme) yürüten backend motorudur. Sunucu dosya sistemiyle doğrudan etkileşime girer.",
+                "en": "The backend engine that carries out file and folder operations (listing, deleting, creating, uploading, editing) coming from the File Browser panel. It interacts directly with the server file system."
+            },
             "file": "admin/browser-islem.php"
         },
         {
-            "keywords": [
-                "browser-panel",
-                "UI-File-Explorer",
-                "Breadcrumb",
-                "Modal-Editor"
-            ],
-            "answer": "Dosya yöneticisinin arayüz dosyasıdır. Klasör yapısını görselleştirir, ekleme/yükleme butonlarını sunar ve dosya düzenleme için (CodeMirror entegreli) modal pencereleri barındırır.",
+            "keywords": {
+                "tr": [
+                    "browser-panel",
+                    "UI dosya gezgini",
+                    "içerik yolu",
+                    "modal düzenleyici"
+                ],
+                "en": [
+                    "browser-panel",
+                    "UI-File-Explorer",
+                    "Breadcrumb",
+                    "Modal-Editor"
+                ]
+            },
+            "answer": {
+                "tr": "Dosya yöneticisinin arayüz dosyasıdır. Klasör yapısını görselleştirir, ekleme/yükleme butonlarını sunar ve dosya düzenleme için (CodeMirror entegreli) modal pencereleri barındırır.",
+                "en": "The interface file of the file manager. It visualizes the folder structure, offers add/upload buttons, and hosts modal windows for file editing (CodeMirror integrated)."
+            },
             "file": "admin/browser-panel.php"
         },
         {
-            "keywords": [
-                "dashboard",
-                "Statistics",
-                "System-Logs",
-                "Admin-Overview"
-            ],
-            "answer": "Yönetim panelinin karşılama ekranıdır. Kullanıcı, sayfa ve modül sayılarını özetler, son sistem günlüklerini listeler ve sunucu bilgilerini (PHP sürümü, aktif tema vb.) gösterir.",
+            "keywords": {
+                "tr": [
+                    "dashboard",
+                    "istatistikler",
+                    "sistem günlükleri",
+                    "yönetim genel bakış"
+                ],
+                "en": [
+                    "dashboard",
+                    "Statistics",
+                    "System-Logs",
+                    "Admin-Overview"
+                ]
+            },
+            "answer": {
+                "tr": "Yönetim panelinin karşılama ekranıdır. Kullanıcı, sayfa ve modül sayılarını özetler, son sistem günlüklerini listeler ve sunucu bilgilerini (PHP sürümü, aktif tema vb.) gösterir.",
+                "en": "The welcome screen of the management panel. It summarizes user, page, and module counts, lists the latest system logs, and shows server information (PHP version, active theme etc.)."
+            },
             "file": "admin/dashboard-panel.php"
         },
         {
-            "keywords": [
-                "migration-process",
-                "ETL",
-                "data-transfer",
-                "MySQL-sync"
-            ],
-            "answer": "SQLite'tan MySQL'e veri aktarımını yöneten arka plan motorudur. Tablo şemalarını dönüştürür, verileri parça parça (chunk) taşır ve işlem sonunda db.php dosyasını yeni veritabanı ayarlarına göre otomatik olarak günceller.",
+            "keywords": {
+                "tr": [
+                    "migration-process",
+                    "ETL",
+                    "veri aktarımı",
+                    "MySQL eşitleme"
+                ],
+                "en": [
+                    "migration-process",
+                    "ETL",
+                    "data-transfer",
+                    "MySQL-sync"
+                ]
+            },
+            "answer": {
+                "tr": "SQLite'tan MySQL'e veri aktarımını yöneten arka plan motorudur. Tablo şemalarını dönüştürür, verileri parça parça (chunk) taşır ve işlem sonunda db.php dosyasını yeni veritabanı ayarlarına göre otomatik olarak günceller.",
+                "en": "The background engine managing data transfer from SQLite to MySQL. It converts table schemas, carries data in chunks, and automatically updates the db.php file according to new database settings at the end of the process."
+            },
             "file": "admin/migration-process.php"
         },
         {
-            "keywords": [
-                "migration-wizard",
-                "UI-Steppers",
-                "AJAX-Batch",
-                "User-Guidance"
-            ],
-            "answer": "Kullanıcıya veri taşıma sürecinde rehberlik eden görsel arayüzdür. Adım adım bağlantı testi, tablo eşleştirme ve ilerleme çubuğu (progress bar) ile sürecin izlenmesini sağlar.",
+            "keywords": {
+                "tr": [
+                    "migration-wizard",
+                    "UI adımları",
+                    "AJAX toplu işlem",
+                    "kullanıcı rehberliği"
+                ],
+                "en": [
+                    "migration-wizard",
+                    "UI-Steppers",
+                    "AJAX-Batch",
+                    "User-Guidance"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcıya veri taşıma sürecinde rehberlik eden görsel arayüzdür. Adım adım bağlantı testi, tablo eşleştirme ve ilerleme çubuğu (progress bar) ile sürecin izlenmesini sağlar.",
+                "en": "The visual interface guiding the user through the data migration process. It ensures monitoring of the process with step-by-step connection testing, table matching, and a progress bar."
+            },
             "file": "admin/migration-wizard.php"
         },
         {
-            "keywords": [
-                "veripanel",
-                "Database-GUI",
-                "SQL-Runner",
-                "Table-List"
-            ],
-            "answer": "Panel içindeki mini bir 'phpMyAdmin' gibi çalışır. Veritabanındaki tabloları listeler, ham SQL sorguları çalıştırmaya izin verir ve SQL dosyası içe aktarma (import) arayüzü sunar.",
+            "keywords": {
+                "tr": [
+                    "veripanel",
+                    "veritabanı arayüzü",
+                    "SQL çalıştırıcı",
+                    "tablo listesi"
+                ],
+                "en": [
+                    "veripanel",
+                    "Database-GUI",
+                    "SQL-Runner",
+                    "Table-List"
+                ]
+            },
+            "answer": {
+                "tr": "Panel içindeki mini bir 'phpMyAdmin' gibi çalışır. Veritabanındaki tabloları listeler, ham SQL sorguları çalıştırmaya izin verir ve SQL dosyası içe aktarma (import) arayüzü sunar.",
+                "en": "Operates like a mini 'phpMyAdmin' within the panel. It lists tables in the database, allows running raw SQL queries, and offers an SQL file import interface."
+            },
             "file": "admin/veripanel-content.php"
         },
         {
-            "keywords": [
-                "verislem",
-                "API-Endpoint",
-                "CRUD",
-                "Backup-Generator"
-            ],
-            "answer": "Veri panelinden gelen AJAX taleplerini (tablo verisi çekme, silme, güncelleme, SQL çalıştırma) karşılayan API katmanıdır. Ayrıca sistemin tam SQL yedeğini (Dump) oluşturma yeteneğine sahiptir.",
+            "keywords": {
+                "tr": [
+                    "verislem",
+                    "API uç noktası",
+                    "CRUD",
+                    "yedek oluşturucu"
+                ],
+                "en": [
+                    "verislem",
+                    "API-Endpoint",
+                    "CRUD",
+                    "Backup-Generator"
+                ]
+            },
+            "answer": {
+                "tr": "Veri panelinden gelen AJAX taleplerini (tablo verisi çekme, silme, güncelleme, SQL çalıştırma) karşılayan API katmanıdır. Ayrıca sistemin tam SQL yedeğini (Dump) oluşturma yeteneğine sahiptir.",
+                "en": "The API layer answering AJAX requests (pulling table data, deleting, updating, running SQL) coming from the data panel. It also has the ability to create a full SQL backup (Dump) of the system."
+            },
             "file": "admin/verislem.php"
         },
         {
-            "keywords": [
-                "modules-panel",
-                "UI-Management",
-                "Marketplace-UI",
-                "Module-List"
-            ],
-            "answer": "Modüllerin listelendiği, aktif/pasif edildiği ve yeni modül yükleme işlemlerinin (Marketplace dahil) başlatıldığı arayüz dosyasıdır. Kullanıcıya yüklü modüllerin durumunu ve sürüm bilgilerini şık bir tablo/kart yapısında sunar.",
+            "keywords": {
+                "tr": [
+                    "modules-panel",
+                    "arayüz yönetimi",
+                    "market arayüzü",
+                    "modül listesi"
+                ],
+                "en": [
+                    "modules-panel",
+                    "UI-Management",
+                    "Marketplace-UI",
+                    "Module-List"
+                ]
+            },
+            "answer": {
+                "tr": "Modüllerin listelendiği, aktif/pasif edildiği ve yeni modül yükleme işlemlerinin (Marketplace dahil) başlatıldığı arayüz dosyasıdır. Kullanıcıya yüklü modüllerin durumunu ve sürüm bilgilerini şık bir tablo/kart yapısında sunar.",
+                "en": "The interface file where modules are listed, activated/deactivated, and new module installation processes (including Marketplace) are started. It presents the status and version information of installed modules to the user in a stylish table/card structure."
+            },
             "file": "admin/modules-panel.php"
         },
         {
-            "keywords": [
-                "modul-func",
-                "Module-Core-Logic",
-                "Zip-Extraction",
-                "Module-Installer"
-            ],
-            "answer": "Modül sisteminin motorudur. ZIP dosyalarını açar, konfigürasyonu (JSON) okur, dosyaları 'modules/' klasörüne taşır ve modülün kendi veritabanı tablolarını (installModule) oluşturur.",
+            "keywords": {
+                "tr": [
+                    "modul-func",
+                    "modül çekirdek mantığı",
+                    "ZIP çıkarma",
+                    "modül yükleyici"
+                ],
+                "en": [
+                    "modul-func",
+                    "Module-Core-Logic",
+                    "Zip-Extraction",
+                    "Module-Installer"
+                ]
+            },
+            "answer": {
+                "tr": "Modül sisteminin motorudur. ZIP dosyalarını açar, konfigürasyonu (JSON) okur, dosyaları 'modules/' klasörüne taşır ve modülün kendi veritabanı tablolarını (installModule) oluşturur.",
+                "en": "The engine of the module system. It opens ZIP files, reads the configuration (JSON), moves files to the 'modules/' folder, and creates the module's own database tables (installModule)."
+            },
             "file": "admin/modul-func.php"
         },
         {
-            "keywords": [
-                "page-panel",
-                "UI-Management",
-                "SortableJS",
-                "Menu-Location",
-                "Snippets"
-            ],
-            "answer": "Sayfaların ve menülerin yönetildiği ana arayüzdür. Sortable.js kullanarak sürükle-bırak yöntemiyle menü sıralaması yapılmasını sağlar, sayfa listesini gösterir ve 'Custom Snippets' (kod parçacıkları) yönetimini barındırır.",
+            "keywords": {
+                "tr": [
+                    "page-panel",
+                    "arayüz yönetimi",
+                    "SortableJS",
+                    "menü konumu",
+                    "kod parçacıkları"
+                ],
+                "en": [
+                    "page-panel",
+                    "UI-Management",
+                    "SortableJS",
+                    "Menu-Location",
+                    "Snippets"
+                ]
+            },
+            "answer": {
+                "tr": "Sayfaların ve menülerin yönetildiği ana arayüzdür. Sortable.js kullanarak sürükle-bırak yöntemiyle menü sıralaması yapılmasını sağlar, sayfa listesini gösterir ve 'Custom Snippets' (kod parçacıkları) yönetimini barındırır.",
+                "en": "The main interface where pages and menus are managed. It allows menu ordering using the drag-and-drop method with Sortable.js, shows the page list, and hosts the 'Custom Snippets' management."
+            },
             "file": "admin/page-panel.php"
         },
         {
-            "keywords": [
-                "page-actions",
-                "CRUD",
-                "Slug-Cleaner",
-                "Image-Upload",
-                "Transaction-Management"
-            ],
-            "answer": "Sayfa oluşturma, düzenleme ve silme işlemlerini yürüten backend motorudur. Resim yükleme (featured image), slug temizleme ve sayfa varlıklarını (CSS/JS) veritabanına işleme görevlerini üstlenir.",
+            "keywords": {
+                "tr": [
+                    "page-actions",
+                    "CRUD",
+                    "slug temizleyici",
+                    "resim yükleme",
+                    "işlem yönetimi"
+                ],
+                "en": [
+                    "page-actions",
+                    "CRUD",
+                    "Slug-Cleaner",
+                    "Image-Upload",
+                    "Transaction-Management"
+                ]
+            },
+            "answer": {
+                "tr": "Sayfa oluşturma, düzenleme ve silme işlemlerini yürüten backend motorudur. Resim yükleme (featured image), slug temizleme ve sayfa varlıklarını (CSS/JS) veritabanına işleme görevlerini üstlenir.",
+                "en": "The backend engine carrying out page creation, editing, and deletion operations. It takes on tasks such as image upload (featured image), slug cleaning, and processing page assets (CSS/JS) into the database."
+            },
             "file": "admin/page-actions.php"
         },
         {
-            "keywords": [
-                "settings-panel",
-                "System-Configuration",
-                "Session-Duration",
-                "Localization-UI"
-            ],
-            "answer": "Sistemin genel ayarlarını (Site adı, logo, SEO ayarları, güvenlik limitleri ve dil seçenekleri) kullanıcıya sunan kapsamlı arayüzdür. Sekmeli (Tab) yapısı sayesinde karmaşık ayarları düzenli bir şekilde gruplandırır.",
+            "keywords": {
+                "tr": [
+                    "settings-panel",
+                    "sistem yapılandırması",
+                    "oturum süresi",
+                    "yerelleştirme arayüzü"
+                ],
+                "en": [
+                    "settings-panel",
+                    "System-Configuration",
+                    "Session-Duration",
+                    "Localization-UI"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin genel ayarlarını (Site adı, logo, SEO ayarları, güvenlik limitleri ve dil seçenekleri) kullanıcıya sunan kapsamlı arayüzdür. Sekmeli (Tab) yapısı sayesinde karmaşık ayarları düzenli bir şekilde gruplandırır.",
+                "en": "The comprehensive interface presenting the system's general settings (Site name, logo, SEO settings, security limits, and language options) to the user. Thanks to its tabbed structure, it groups complex settings in an orderly fashion."
+            },
             "file": "admin/settings-panel.php"
         },
         {
-            "keywords": [
-                "settings-edit",
-                "Htaccess-Generator",
-                "Language-Upload",
-                "Transaction-Safe"
-            ],
-            "answer": "Settings-panel'den gelen verileri işleyen backend motorudur. Veritabanındaki 'settings' tablosunu günceller, yeni dil dosyalarını (.json) sisteme yükler ve en önemlisi SEO uyumlu linkler için .htaccess dosyasını dinamik olarak oluşturur.",
+            "keywords": {
+                "tr": [
+                    "settings-edit",
+                    "Htaccess oluşturucu",
+                    "dil yükleme",
+                    "güvenli işlem"
+                ],
+                "en": [
+                    "settings-edit",
+                    "Htaccess-Generator",
+                    "Language-Upload",
+                    "Transaction-Safe"
+                ]
+            },
+            "answer": {
+                "tr": "Settings-panel'den gelen verileri işleyen backend motorudur. Veritabanındaki 'settings' tablosunu günceller, yeni dil dosyalarını (.json) sisteme yükler ve en önemlisi SEO uyumlu linkler için .htaccess dosyasını dinamik olarak oluşturur.",
+                "en": "The backend engine processing data from the Settings-panel. It updates the 'settings' table in the database, uploads new language files (.json) to the system, and most importantly, dynamically creates the .htaccess file for SEO-compliant links."
+            },
             "file": "admin/settings-edit.php"
         },
         {
-            "keywords": [
-                "system-panel",
-                "Log-Audit",
-                "Performance-Metrics",
-                "Security-Logs"
-            ],
-            "answer": "Sistemin röntgenini çeken dosyadır. Kim, ne zaman, hangi işlemi yapmış (log detayları) gösterir. Ayrıca veritabanı boyutu, PHP çalışma süresi ve otomatik log temizleme (cleanup) gibi bakım görevlerini yönetir.",
+            "keywords": {
+                "tr": [
+                    "system-panel",
+                    "günlük denetimi",
+                    "performans ölçümleri",
+                    "güvenlik günlükleri"
+                ],
+                "en": [
+                    "system-panel",
+                    "Log-Audit",
+                    "Performance-Metrics",
+                    "Security-Logs"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin röntgenini çeken dosyadır. Kim, ne zaman, hangi işlemi yapmış (log detayları) gösterir. Ayrıca veritabanı boyutu, PHP çalışma süresi ve otomatik log temizleme (cleanup) gibi bakım görevlerini yönetir.",
+                "en": "The file that takes an X-ray of the system. It shows who performed which operation and when (log details). Additionally, it manages maintenance tasks such as database size, PHP runtime, and automatic log cleaning (cleanup)."
+            },
             "file": "admin/system-panel.php"
         },
         {
-            "keywords": [
-                "themes-panel",
-                "Theme-Listing",
-                "Active-Theme",
-                "JSON-Metadata"
-            ],
-            "answer": "Sistemde yüklü olan tüm temaları 'themes/' klasöründen tarayarak listeleyen arayüzdür. Her temanın içindeki 'theme.json' dosyasını okuyarak tema adı, versiyonu ve önizleme görseli gibi bilgileri kullanıcıya şık bir galeri formatında sunar.",
+            "keywords": {
+                "tr": [
+                    "themes-panel",
+                    "tema listeleme",
+                    "aktif tema",
+                    "JSON meta verileri"
+                ],
+                "en": [
+                    "themes-panel",
+                    "Theme-Listing",
+                    "Active-Theme",
+                    "JSON-Metadata"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemde yüklü olan tüm temaları 'themes/' klasöründen tarayarak listeleyen arayüzdür. Her temanın içindeki 'theme.json' dosyasını okuyarak tema adı, versiyonu ve önizleme görseli gibi bilgileri kullanıcıya şık bir galeri formatında sunar.",
+                "en": "The interface that lists all themes installed in the system by scanning from the 'themes/' folder. By reading the 'theme.json' file inside each theme, it presents information such as theme name, version, and preview image to the user in a stylish gallery format."
+            },
             "file": "admin/themes-panel.php"
         },
         {
-            "keywords": [
-                "theme-func",
-                "Theme-Operations",
-                "Duplicate-Theme",
-                "Market-Integration"
-            ],
-            "answer": "Temaların aktif edilmesi, silinmesi ve kopyalanması (duplicate) gibi ağır iş yüklerini yöneten backend dosyasıdır. Özellikle bir temayı kopyalayarak üzerinde güvenle değişiklik yapma imkanı tanıyan 'handleDuplicateTheme' fonksiyonu çok değerlidir.",
+            "keywords": {
+                "tr": [
+                    "theme-func",
+                    "tema işlemleri",
+                    "tema kopyalama",
+                    "market entegrasyonu"
+                ],
+                "en": [
+                    "theme-func",
+                    "Theme-Operations",
+                    "Duplicate-Theme",
+                    "Market-Integration"
+                ]
+            },
+            "answer": {
+                "tr": "Temaların aktif edilmesi, silinmesi ve kopyalanması (duplicate) gibi ağır iş yüklerini yöneten backend dosyasıdır. Özellikle bir temayı kopyalayarak üzerinde güvenle değişiklik yapma imkanı tanıyan 'handleDuplicateTheme' fonksiyonu çok değerlidir.",
+                "en": "The backend file managing heavy workloads such as activating, deleting, and duplicating themes. Especially the 'handleDuplicateTheme' function, which allows making changes safely by duplicating a theme, is very valuable."
+            },
             "file": "admin/theme-func.php"
         },
         {
-            "keywords": [
-                "theme-settings",
-                "Visual-Customizer",
-                "JSON-Config",
-                "Dynamic-UI"
-            ],
-            "answer": "Temaya özel ayarların (renkler, fontlar, arka planlar) yönetildiği dinamik form alanıdır. Sabit bir form yerine, temanın içindeki 'settings.json' dosyasını okuyarak o temaya özel inputlar (Color picker, Image upload vb.) üretir.",
+            "keywords": {
+                "tr": [
+                    "theme-settings",
+                    "görsel özelleştirici",
+                    "JSON yapılandırması",
+                    "dinamik kullanıcı arayüzü"
+                ],
+                "en": [
+                    "theme-settings",
+                    "Visual-Customizer",
+                    "JSON-Config",
+                    "Dynamic-UI"
+                ]
+            },
+            "answer": {
+                "tr": "Temaya özel ayarların (renkler, fontlar, arka planlar) yönetildiği dinamik form alanıdır. Sabit bir form yerine, temanın içindeki 'settings.json' dosyasını okuyarak o temaya özel inputlar (Color picker, Image upload vb.) üretir.",
+                "en": "The dynamic form field where theme-specific settings (colors, fonts, backgrounds) are managed. Instead of a fixed form, it generates theme-specific inputs (Color picker, Image upload etc.) by reading the 'settings.json' file within the theme."
+            },
             "file": "admin/theme-settings.php"
         },
         {
-            "keywords": [
-                "user-panel",
-                "User-List",
-                "Role-Badges",
-                "AJAX-Data"
-            ],
-            "answer": "Sistemdeki kullanıcıları listeleyen, rollerini (admin, editor, user) gösteren ve yeni kullanıcı ekleme/düzenleme işlemlerini başlatan ana arayüzdür. Veriler statik PHP döngüsü yerine, dinamik bir deneyim için 'admin.js' üzerinden gelen AJAX verileriyle doldurulur.",
+            "keywords": {
+                "tr": [
+                    "user-panel",
+                    "kullanıcı listesi",
+                    "rol rozetleri",
+                    "AJAX verisi"
+                ],
+                "en": [
+                    "user-panel",
+                    "User-List",
+                    "Role-Badges",
+                    "AJAX-Data"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemdeki kullanıcıları listeleyen, rollerini (admin, editor, user) gösteren ve yeni kullanıcı ekleme/düzenleme işlemlerini başlatan ana arayüzdür. Veriler statik PHP döngüsü yerine, dinamik bir deneyim için 'admin.js' üzerinden gelen AJAX verileriyle doldurulur.",
+                "en": "The main interface listing users in the system, showing their roles (admin, editor, user), and starting new user addition/editing processes. Instead of a static PHP loop, data is filled with AJAX data coming from 'admin.js' for a dynamic experience."
+            },
             "file": "admin/user-panel.php"
         },
         {
-            "keywords": [
-                "user-edit",
-                "CRUD-API",
-                "Password-Hashing",
-                "Main-Admin-Protection"
-            ],
-            "answer": "Kullanıcı tablosu üzerindeki tüm CRUD (Oluşturma, Okuma, Güncelleme, Silme) işlemlerini yöneten API katmanıdır. Şifreleri güvenli bir şekilde hash'ler ve sistemin kilitlenmemesi için 'ID: 1' olan ana adminin silinmesini kod seviyesinde engeller.",
+            "keywords": {
+                "tr": [
+                    "user-edit",
+                    "CRUD API",
+                    "parola karma",
+                    "ana admin koruması"
+                ],
+                "en": [
+                    "user-edit",
+                    "CRUD-API",
+                    "Password-Hashing",
+                    "Main-Admin-Protection"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcı tablosu üzerindeki tüm CRUD (Oluşturma, Okuma, Güncelleme, Silme) işlemlerini yöneten API katmanıdır. Şifreleri güvenli bir şekilde hash'ler ve sistemin kilitlenmemesi için 'ID: 1' olan ana adminin silinmesini kod seviyesinde engeller.",
+                "en": "The API layer managing all CRUD (Create, Read, Update, Delete) operations on the user table. It securely hashes passwords and prevents the deletion of the main admin with 'ID: 1' at the code level to prevent the system from getting locked."
+            },
             "file": "admin/user-edit.php"
         },
         {
-            "keywords": [
-                "captcha",
-                "security",
-                "font-awesome",
-                "session-validation"
-            ],
-            "answer": "Bot koruması için görsel doğrulama sınıfıdır. FontAwesome ikonlarını kullanarak kullanıcıdan doğru kategoriyi seçmesini ister; verileri session üzerinde tutar ve CSS tabanlı 'obfuscation' (gizleme) teknikleri kullanır.",
+            "keywords": {
+                "tr": [
+                    "captcha",
+                    "güvenlik",
+                    "font-awesome",
+                    "oturum doğrulama"
+                ],
+                "en": [
+                    "captcha",
+                    "security",
+                    "font-awesome",
+                    "session-validation"
+                ]
+            },
+            "answer": {
+                "tr": "Bot koruması için görsel doğrulama sınıfıdır. FontAwesome ikonlarını kullanarak kullanıcıdan doğru kategoriyi seçmesini ister; verileri session üzerinde tutar ve CSS tabanlı 'obfuscation' (gizleme) teknikleri kullanır.",
+                "en": "The visual verification class for bot protection. It asks the user to select the correct category using FontAwesome icons; it keeps the data on the session and uses CSS-based 'obfuscation' techniques."
+            },
             "file": "captcha_lib.php"
         },
         {
-            "keywords": [
-                "hooks",
-                "event-management",
-                "plugin-system",
-                "ai-integration"
-            ],
-            "answer": "Sistemin olay (event) yönetim merkezidir. Modüllerin çekirdek koda müdahale etmeden fonksiyon çalıştırmasını sağlar (add_hook, run_hook). Ayrıca admin/debug modunda AI Hata Raporlayıcı arayüzünü sayfaya enjekte eder.",
+            "keywords": {
+                "tr": [
+                    "hooks",
+                    "olay yönetimi",
+                    "eklenti sistemi",
+                    "AI entegrasyonu"
+                ],
+                "en": [
+                    "hooks",
+                    "event-management",
+                    "plugin-system",
+                    "ai-integration"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin olay (event) yönetim merkezidir. Modüllerin çekirdek koda müdahale etmeden fonksiyon çalıştırmasını sağlar (add_hook, run_hook). Ayrıca admin/debug modunda AI Hata Raporlayıcı arayüzünü sayfaya enjekte eder.",
+                "en": "The system's event management center. It allows modules to run functions without interfering with the core code (add_hook, run_hook). It also injects the AI Error Reporter interface into the page in admin/debug mode."
+            },
             "file": "hooks.php"
         },
         {
-            "keywords": [
-                "logging",
-                "error-handling",
-                "audit-log",
-                "exception-handler"
-            ],
-            "answer": "Sistem genelindeki hataları, istisnaları ve kullanıcı eylemlerini kayıt altına alan denetim (audit) mekanizmasıdır. Hem SQLite hem MySQL desteği sunarak hata raporlarını veritabanında saklar.",
+            "keywords": {
+                "tr": [
+                    "günlükleme",
+                    "hata yönetimi",
+                    "denetim günlüğü",
+                    "istisna işleyici"
+                ],
+                "en": [
+                    "logging",
+                    "error-handling",
+                    "audit-log",
+                    "exception-handler"
+                ]
+            },
+            "answer": {
+                "tr": "Sistem genelindeki hataları, istisnaları ve kullanıcı eylemlerini kayıt altına alan denetim (audit) mekanizmasıdır. Hem SQLite hem MySQL desteği sunarak hata raporlarını veritabanında saklar.",
+                "en": "Audit mechanism recording errors, exceptions, and user actions throughout the system. It offers both SQLite and MySQL support, storing error reports in the database."
+            },
             "file": "logger.php"
         },
         {
-            "keywords": [
-                "authentication",
-                "security",
-                "brute-force",
-                "captcha",
-                "session"
-            ],
-            "answer": "Kullanıcı giriş işlemlerini yöneten ana dosyadır. Kullanıcı bilgilerini doğrular, oturum başlatır ve başarısız denemeleri IP bazlı olarak 'login_attempts' tablosunda izleyerek Brute-Force saldırılarını engeller. Ayrıca görsel tabanlı özel bir captcha sistemini destekler.",
+            "keywords": {
+                "tr": [
+                    "kimlik doğrulama",
+                    "güvenlik",
+                    "kaba kuvvet saldırısı",
+                    "captcha",
+                    "oturum"
+                ],
+                "en": [
+                    "authentication",
+                    "security",
+                    "brute-force",
+                    "captcha",
+                    "session"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcı giriş işlemlerini yöneten ana dosyadır. Kullanıcı bilgilerini doğrular, oturum başlatır ve başarısız denemeleri IP bazlı olarak 'login_attempts' tablosunda izleyerek Brute-Force saldırılarını engeller. Ayrıca görsel tabanlı özel bir captcha sistemini destekler.",
+                "en": "The main file managing user login transactions. It verifies user information, starts a session, and prevents Brute-Force attacks by monitoring failed attempts on an IP basis in the 'login_attempts' table. It also supports a visual-based special captcha system."
+            },
             "file": "php/login.php"
         },
         {
-            "keywords": [
-                "session_destroy",
-                "security",
-                "cookie_cleanup"
-            ],
-            "answer": "Aktif kullanıcı oturumunu güvenli bir şekilde sonlandırmak için tasarlanmıştır. Sadece $_SESSION dizisini boşaltmakla kalmaz, aynı zamanda tarayıcıdaki oturum çerezini (session cookie) geçmiş bir tarihe ayarlayarak fiziksel olarak silinmesini sağlar.",
+            "keywords": {
+                "tr": [
+                    "oturum_sonlandır",
+                    "güvenlik",
+                    "çerez_temizliği"
+                ],
+                "en": [
+                    "session_destroy",
+                    "security",
+                    "cookie_cleanup"
+                ]
+            },
+            "answer": {
+                "tr": "Aktif kullanıcı oturumunu güvenli bir şekilde sonlandırmak için tasarlanmıştır. Sadece $_SESSION dizisini boşaltmakla kalmaz, aynı zamanda tarayıcıdaki oturum çerezini (session cookie) geçmiş bir tarihe ayarlayarak fiziksel olarak silinmesini sağlar.",
+                "en": "Designed to safely terminate the active user session. It not only empties the $_SESSION array but also ensures the session cookie in the browser is physically deleted by setting it to a past date."
+            },
             "file": "php/logout.php"
         },
         {
-            "keywords": [
-                "dynamic_menu",
-                "role_based_access",
-                "database_query"
-            ],
-            "answer": "Sistemin menü yapısını veritabanından çeken ve kullanıcının yetki seviyesine (RBAC) göre filtreleyen yardımcı dosyadır. Menülerin hangi konumlarda (navbar, footer vb.) görüneceğini ve modül izinlerini kontrol eder.",
+            "keywords": {
+                "tr": [
+                    "dinamik_menü",
+                    "rol_tabanlı_erişim",
+                    "veritabanı_sorgusu"
+                ],
+                "en": [
+                    "dynamic_menu",
+                    "role_based_access",
+                    "database_query"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin menü yapısını veritabanından çeken ve kullanıcının yetki seviyesine (RBAC) göre filtreleyen yardımcı dosyadır. Menülerin hangi konumlarda (navbar, footer vb.) görüneceğini ve modül izinlerini kontrol eder.",
+                "en": "The helper file pulling the system's menu structure from the database and filtering it according to the user's authority level (RBAC). It checks module permissions and where menus will appear (navbar, footer etc.)."
+            },
             "file": "php/menu-loader.php"
         },
         {
-            "keywords": [
-                "notifications",
-                "ajax",
-                "real-time-api",
-                "unread-count"
-            ],
-            "answer": "Sistemin bildirim motorudur. 'notifications.php' sunucu tarafında bildirim oluşturma mantığını (helper) sağlarken, 'notifications-action.php' istemci (front-end) tarafı için bir JSON API ucu (endpoint) görevi görür. Bildirimlerin okunma durumu ve listelenmesi işlemlerini yönetir.",
+            "keywords": {
+                "tr": [
+                    "bildirimler",
+                    "ajax",
+                    "gerçek zamanlı API",
+                    "okunmamış sayısı"
+                ],
+                "en": [
+                    "notifications",
+                    "ajax",
+                    "real-time-api",
+                    "unread-count"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin bildirim motorudur. 'notifications.php' sunucu tarafında bildirim oluşturma mantığını (helper) sağlarken, 'notifications-action.php' istemci (front-end) tarafı için bir JSON API ucu (endpoint) görevi görür. Bildirimlerin okunma durumu ve listelenmesi işlemlerini yönetir.",
+                "en": "The notification engine of the system. While 'notifications.php' provides the notification creation logic (helper) on the server side, 'notifications-action.php' acts as a JSON API endpoint for the client (front-end) side. It manages the read status and listing of notifications."
+            },
             "file": "php/notifications.php & php/notifications-action.php"
         },
         {
-            "keywords": [
-                "user-profile",
-                "account-settings",
-                "avatar-system",
-                "hook-system"
-            ],
-            "answer": "Kullanıcıların profil bilgilerini görüntülediği ve düzenlediği kapsamlı bir yönetim arayüzüdür. Tema tercihleri, biyografi ve güvenlik ayarlarını barındırır. En dikkat çekici özelliği, modüllerin profil sayfasına veri enjekte etmesine olanak tanıyan 'run_hook' fonksiyonları ile donatılmış olmasıdır.",
+            "keywords": {
+                "tr": [
+                    "kullanıcı profili",
+                    "hesap ayarları",
+                    "avatar sistemi",
+                    "kanca sistemi"
+                ],
+                "en": [
+                    "user-profile",
+                    "account-settings",
+                    "avatar-system",
+                    "hook-system"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcıların profil bilgilerini görüntülediği ve düzenlediği kapsamlı bir yönetim arayüzüdür. Tema tercihleri, biyografi ve güvenlik ayarlarını barındırır. En dikkat çekici özelliği, modüllerin profil sayfasına veri enjekte etmesine olanak tanıyan 'run_hook' fonksiyonları ile donatılmış olmasıdır.",
+                "en": "A comprehensive management interface where users view and edit their profile information. It hosts theme preferences, biography, and security settings. Its most remarkable feature is it is equipped with 'run_hook' functions that allow modules to inject data into the profile page."
+            },
             "file": "php/profile.php"
         },
         {
-            "keywords": [
-                "security",
-                "csrf-protection",
-                "access-control",
-                "session-check"
-            ],
-            "answer": "Sistemin güvenlik kapıcısıdır. Kullanıcının oturum açıp açmadığını kontrol eder, oturum yoksa login sayfasına yönlendirir. Ayrıca, sistem genelinde form güvenliğini sağlayan CSRF token üretimini ve doğrulama helper'ını (check_csrf) barındırır.",
+            "keywords": {
+                "tr": [
+                    "güvenlik",
+                    "csrf koruması",
+                    "erişim kontrolü",
+                    "oturum kontrolü"
+                ],
+                "en": [
+                    "security",
+                    "csrf-protection",
+                    "access-control",
+                    "session-check"
+                ]
+            },
+            "answer": {
+                "tr": "Sistemin güvenlik kapıcısıdır. Kullanıcının oturum açıp açmadığını kontrol eder, oturum yoksa login sayfasına yönlendirir. Ayrıca, sistem genelinde form güvenliğini sağlayan CSRF token üretimini ve doğrulama helper'ını (check_csrf) barındırır.",
+                "en": "The system's security gatekeeper. It checks if the user has logged in, and redirects to the login page if there is no session. Additionally, it hosts the CSRF token generation and verification helper (check_csrf) that ensures form security throughout the system."
+            },
             "file": "php/user_auth.php"
         },
         {
-            "keywords": [
-                "theme-engine",
-                "layout-manager",
-                "active-theme",
-                "asset-loading"
-            ],
-            "answer": "SpeedPage'in görsel kimliğini yöneten çekirdek dosyadır. Aktif temayı belirler (kullanıcı tercihine veya sistem varsayılanına göre), tema fonksiyonlarını yükler ve header/footer gibi tema parçalarının dinamik olarak sayfaya dahil edilmesini sağlayan 'load_theme_part' fonksiyonunu sunar.",
+            "keywords": {
+                "tr": [
+                    "tema motoru",
+                    "düzen yöneticisi",
+                    "aktif tema",
+                    "varlık yükleme"
+                ],
+                "en": [
+                    "theme-engine",
+                    "layout-manager",
+                    "active-theme",
+                    "asset-loading"
+                ]
+            },
+            "answer": {
+                "tr": "SpeedPage'in görsel kimliğini yöneten çekirdek dosyadır. Aktif temayı belirler (kullanıcı tercihine veya sistem varsayılanına göre), tema fonksiyonlarını yükler ve header/footer gibi tema parçalarının dinamik olarak sayfaya dahil edilmesini sağlayan 'load_theme_part' fonksiyonunu sunar.",
+                "en": "The core file managing SpeedPage's visual identity. It determines the active theme (based on user preference or system default), loads theme functions, and offers the 'load_theme_part' function that ensures dynamic inclusion of theme parts such as header/footer in the page."
+            },
             "file": "php/theme-init.php"
         },
         {
-            "keywords": [
-                "user-registration",
-                "validation",
-                "security",
-                "captcha"
-            ],
-            "answer": "Yeni kullanıcı kayıt sürecini yönetir. Kullanıcı adı benzersizliği kontrolü, şifre hashleme (password_hash) ve Brute-Force engelleme mekanizmalarını içerir. Kayıt başarılı olduğunda sistem bildirimleri (notifications.php) üzerinden 'yeni kullanıcı' bildirimi oluşturur.",
+            "keywords": {
+                "tr": [
+                    "kullanıcı kaydı",
+                    "doğrulama",
+                    "güvenlik",
+                    "captcha"
+                ],
+                "en": [
+                    "user-registration",
+                    "validation",
+                    "security",
+                    "captcha"
+                ]
+            },
+            "answer": {
+                "tr": "Yeni kullanıcı kayıt sürecini yönetir. Kullanıcı adı benzersizliği kontrolü, şifre hashleme (password_hash) ve Brute-Force engelleme mekanizmalarını içerir. Kayıt başarılı olduğunda sistem bildirimleri (notifications.php) üzerinden 'yeni kullanıcı' bildirimi oluşturur.",
+                "en": "Manages the new user registration process. Includes username uniqueness check, password hashing (password_hash), and Brute-Force prevention mechanisms. When registration is successful, creates a 'new user' notification via system notifications (notifications.php)."
+            },
             "file": "php/register.php"
         },
         {
-            "keywords": [
-                "i18n",
-                "localization",
-                "language-switcher",
-                "ajax-api"
-            ],
-            "answer": "Kullanıcının dil tercihini dinamik olarak değiştirmesini sağlayan hafif bir API ucudur. Gelen dil kodunu 'beyaz liste' (whitelist) kontrolünden geçirerek oturuma (session) kaydeder.",
+            "keywords": {
+                "tr": [
+                    "i18n",
+                    "yerelleştirme",
+                    "dil değiştirici",
+                    "ajax API"
+                ],
+                "en": [
+                    "i18n",
+                    "localization",
+                    "language-switcher",
+                    "ajax-api"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcının dil tercihini dinamik olarak değiştirmesini sağlayan hafif bir API ucudur. Gelen dil kodunu 'beyaz liste' (whitelist) kontrolünden geçirerek oturuma (session) kaydeder.",
+                "en": "A lightweight API endpoint that allows the user to dynamically change their language preference. It saves the incoming language code to the session by passing it through a 'whitelist' check."
+            },
             "file": "php/set-lang.php"
         },
         {
-            "keywords": [
-                "theme-metadata",
-                "configuration-schema",
-                "theme-settings-ui"
-            ],
-            "answer": "Temanın kimlik kartı ve yönetim panelindeki ayar şemasıdır. 'theme.json' temanın temel bilgilerini taşırken, 'settings.json' dinamik olarak admin panelinde oluşacak form alanlarını (renk seçici, metin alanları vb.) JSON formatında tanımlar.",
+            "keywords": {
+                "tr": [
+                    "tema meta verileri",
+                    "yapılandırma şeması",
+                    "tema ayarları kullanıcı arayüzü"
+                ],
+                "en": [
+                    "theme-metadata",
+                    "configuration-schema",
+                    "theme-settings-ui"
+                ]
+            },
+            "answer": {
+                "tr": "Temanın kimlik kartı ve yönetim panelindeki ayar şemasıdır. 'theme.json' temanın temel bilgilerini taşırken, 'settings.json' dinamik olarak admin panelinde oluşacak form alanlarını (renk seçici, metin alanları vb.) JSON formatında tanımlar.",
+                "en": "The theme's ID card and the settings schema in the management panel. While 'theme.json' carries basic information of the theme, 'settings.json' defines form fields (color picker, text fields etc.) that will dynamically be created in the admin panel in JSON format."
+            },
             "file": "themes/default/theme.json & settings.json"
         },
         {
-            "keywords": [
-                "theme-hooks",
-                "event-listeners",
-                "injection",
-                "dynamic-css"
-            ],
-            "answer": "Temanın beynidir. 'add_hook' fonksiyonlarını kullanarak sistemin farklı noktalarına (header, footer, content) müdahale eder. Favicon yönetiminden, dinamik CSS enjeksiyonuna ve sosyal paylaşım butonlarına kadar tüm mantıksal görünüm işlemlerini yönetir.",
+            "keywords": {
+                "tr": [
+                    "tema kancaları",
+                    "olay dinleyicileri",
+                    "enjeksiyon",
+                    "dinamik CSS"
+                ],
+                "en": [
+                    "theme-hooks",
+                    "event-listeners",
+                    "injection",
+                    "dynamic-css"
+                ]
+            },
+            "answer": {
+                "tr": "Temanın beynidir. 'add_hook' fonksiyonlarını kullanarak sistemin farklı noktalarına (header, footer, content) müdahale eder. Favicon yönetiminden, dinamik CSS enjeksiyonuna ve sosyal paylaşım butonlarına kadar tüm mantıksal görünüm işlemlerini yönetir.",
+                "en": "The brain of the theme. Intervenes in different points of the system (header, footer, content) using 'add_hook' functions. Manages all logical appearance transactions from favicon management to dynamic CSS injection and social share buttons."
+            },
             "file": "themes/default/functions.php"
         },
         {
-            "keywords": [
-                "dom-initialization",
-                "seo-meta",
-                "navigation",
-                "theme-switcher"
-            ],
-            "answer": "Sayfanın başlangıç ve navigasyon yapısını kurar. 'header.php' SEO meta etiketlerini ve varlıkları (assets) yüklerken, 'navbar.php' dinamik menüleri ve gerçek zamanlı bildirim (notification) sistemini JS ile entegre eder.",
+            "keywords": {
+                "tr": [
+                    "dom başlatma",
+                    "seo meta",
+                    "navigasyon",
+                    "tema değiştirici"
+                ],
+                "en": [
+                    "dom-initialization",
+                    "seo-meta",
+                    "navigation",
+                    "theme-switcher"
+                ]
+            },
+            "answer": {
+                "tr": "Sayfanın başlangıç ve navigasyon yapısını kurar. 'header.php' SEO meta etiketlerini ve varlıkları (assets) yüklerken, 'navbar.php' dinamik menüleri ve gerçek zamanlı bildirim (notification) sistemini JS ile entegre eder.",
+                "en": "Sets up the starting and navigation structure of the page. While 'header.php' loads SEO meta tags and assets, 'navbar.php' integrates dynamic menus and real-time notification system with JS."
+            },
             "file": "themes/default/header.php & navbar.php"
         },
         {
-            "keywords": [
-                "dom-initialization",
-                "seo-meta",
-                "navigation",
-                "theme-switcher"
-            ],
-            "answer": "Sayfanın başlangıç ve navigasyon yapısını kurar. 'header.php' SEO meta etiketlerini ve varlıkları (assets) yüklerken, 'navbar.php' dinamik menüleri ve gerçek zamanlı bildirim (notification) sistemini JS ile entegre eder.",
-            "file": "themes/default/header.php & navbar.php"
-        },
-        {
-            "keywords": [
-                "grid-layout",
-                "content-discovery",
-                "statistics",
-                "widgets"
-            ],
-            "answer": "Kullanıcıyı karşılayan ana içerik ve yan panel bileşenleridir. 'home.php' aktif sayfaları modern bir grid yapısında sunarken, 'sidebar.php' sistem istatistiklerini ve son eklenen içerikleri widget tabanlı bir mantıkla gösterir.",
+            "keywords": {
+                "tr": [
+                    "ızgara düzeni",
+                    "içerik keşfi",
+                    "istatistikler",
+                    "bileşenler"
+                ],
+                "en": [
+                    "grid-layout",
+                    "content-discovery",
+                    "statistics",
+                    "widgets"
+                ]
+            },
+            "answer": {
+                "tr": "Kullanıcıyı karşılayan ana içerik ve yan panel bileşenleridir. 'home.php' aktif sayfaları modern bir grid yapısında sunarken, 'sidebar.php' sistem istatistiklerini ve son eklenen içerikleri widget tabanlı bir mantıkla gösterir.",
+                "en": "The main content and side panel components that welcome the user. While 'home.php' presents active pages in a modern grid structure, 'sidebar.php' shows system statistics and recently added content with a widget-based logic."
+            },
             "file": "themes/default/home.php & sidebar.php"
         },
         {
-            "keywords": [
-                "responsive-design",
-                "css-variables",
-                "pwa-integration",
-                "asset-loading"
-            ],
-            "answer": "Temanın kapanışını ve stil dünyasını temsil eder. 'style.css' modern CSS değişkenleri (variables) ile dark-mode uyumlu, profesyonel bir tasarım sunar. 'footer.php' ise PWA (Service Worker) kaydı ve modül tabanlı JS dosyalarının yüklenmesini sağlar.",
+            "keywords": {
+                "tr": [
+                    "duyarlı tasarım",
+                    "css değişkenleri",
+                    "pwa entegrasyonu",
+                    "varlık yükleme"
+                ],
+                "en": [
+                    "responsive-design",
+                    "css-variables",
+                    "pwa-integration",
+                    "asset-loading"
+                ]
+            },
+            "answer": {
+                "tr": "Temanın kapanışını ve stil dünyasını temsil eder. 'style.css' modern CSS değişkenleri (variables) ile dark-mode uyumlu, profesyonel bir tasarım sunar. 'footer.php' ise PWA (Service Worker) kaydı ve modül tabanlı JS dosyalarının yüklenmesini sağlar.",
+                "en": "Represents the closing and style world of the theme. 'style.css' offers a professional design compatible with dark-mode with modern CSS variables. 'footer.php' enables PWA (Service Worker) registration and loading of module-based JS files."
+            },
             "file": "themes/default/footer.php & style.css"
         }
     ],
-    "fallback": "Hımm, bu konu dökümanımda yok. Sadece SpeedPage CMS modül yapısı ve kurulumu hakkında konuşabilirim. :D"
+    "fallback": {
+        "tr": "Hımm, bu konu dökümanımda yok. Sadece SpeedPage CMS modül yapısı ve kurulumu hakkında konuşabilirim. :D",
+        "en": "Hmm, I don't have this in my documentation. I can only talk about SpeedPage CMS module structure and installation. :D"
+    }
 }

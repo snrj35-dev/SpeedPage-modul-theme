@@ -4,92 +4,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpeedPage Dev-Bot v2.5</title>
+    <title>SpeedPage Dev-Bot v2.6</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #f0f2f5;
-            --bot: #ffffff;
-            --user: #dcf8c6;
-            --accent: #25d366;
-            --dark: #075e54;
+            --primary: #6366f1;
+            /* Modern Indigo */
+            --primary-light: #818cf8;
+            --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --bot-bubble: rgba(255, 255, 255, 0.1);
+            --user-bubble: #6366f1;
+            --accent: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--bg);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            overflow: hidden;
         }
 
-        #chat-container {
-            min-width: 420px;
-            min-height: 550px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        #app-container {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            max-width: 800px;
-            max-height: 90%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+            position: relative;
         }
 
-        #header {
-            background: var(--dark);
+        /* Header */
+        header {
+            padding: 24px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bot-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bot-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
             color: white;
-            padding: 20px;
-            text-align: center;
-            font-weight: bold;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
         }
 
+        .bot-status h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--glass-bg);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Chat Window */
         #chat-window {
             flex: 1;
-            padding: 15px;
+            padding: 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            background: #e5ddd5;
+            gap: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        #chat-window::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-window::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         .msg {
-            max-width: 85%;
-            padding: 10px 15px;
-            border-radius: 15px;
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 18px;
             font-size: 0.95rem;
+            line-height: 1.5;
             position: relative;
-            animation: fadeIn 0.3s ease;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .bot {
-            align-self: flex-start;
-            background: var(--bot);
-            border-top-left-radius: 2px;
-        }
-
-        .user {
-            align-self: flex-end;
-            background: var(--user);
-            border-top-right-radius: 2px;
-        }
-
-        .file-tag {
-            display: block;
-            font-size: 0.75rem;
-            color: #25d366;
-            margin-top: 5px;
-            font-weight: bold;
-            border-top: 1px solid #eee;
-            padding-top: 3px;
-        }
-
-        @keyframes fadeIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
 
             to {
@@ -98,150 +168,400 @@
             }
         }
 
-        #input-area {
+        .msg.bot {
+            align-self: flex-start;
+            background: var(--bot-bubble);
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .msg.user {
+            align-self: flex-end;
+            background: var(--user-bubble);
+            color: white;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary);
+        }
+
+        .file-ref {
             display: flex;
-            padding: 15px;
-            background: #f0f0f0;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Controls */
+        .controls {
+            padding: 0 24px 12px 24px;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            scrollbar-width: none;
+        }
+
+        .quick-actions::-webkit-scrollbar {
+            display: none;
+        }
+
+        .action-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .guide-container {
+            margin-bottom: 12px;
+        }
+
+        #fileSelect {
+            width: 100%;
+            background: #2e2a5e;
+            /* Solid color for better readability */
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 12px;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        #fileSelect:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        #fileSelect option {
+            background: #1e1b4b;
+            /* Deep Indigo - darker than the select */
+            color: var(--text-main);
+            padding: 10px;
+        }
+
+        /* Input Area */
+        #input-area {
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 12px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
         }
 
         input {
             flex: 1;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 25px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 16px;
             outline: none;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
 
-        button {
-            background: var(--accent);
-            color: white;
+        input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
             border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            margin-left: 10px;
+            border-radius: 16px;
+            color: white;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
         }
 
-        .typing {
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .typing-indicator {
+            padding: 0 24px 8px 24px;
+            color: var(--text-muted);
             font-size: 0.8rem;
-            color: #666;
-            padding: 5px 20px;
             display: none;
-            background: #e5ddd5;
         }
 
-        .msg b {
-            color: var(--dark);
+        .typing-indicator span {
+            display: inline-block;
+            animation: bounce 1.4s infinite;
         }
 
-        .msg small {
-            opacity: 0.8;
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
         }
 
-        .q-btn {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            width: auto;
-            margin: 0;
-            height: auto;
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
         }
 
-        .q-btn {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            cursor: pointer;
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-4px);
+            }
         }
 
-        /* Modal Tasarımı */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            width: 300px;
-        }
-
-        #modal input,
-        #modal select {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        .overlay {
-            display: none;
+        /* Modal */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-body {
+            background: #1e1b4b;
+            border: 1px solid var(--glass-border);
+            padding: 32px;
+            border-radius: 24px;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .modal-body h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal-body input,
+        .modal-body select {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        /* Markdown Helper */
+        .markdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.85rem;
+        }
+
+        .markdown-table th,
+        .markdown-table td {
+            border: 1px solid var(--glass-border);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .markdown-table th {
+            background: rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
 
 <body>
 
-    <div id="chat-container">
-        <div id="header">🤖 SpeedPage Market & Dev-Bot</div>
+    <div id="app-container">
+        <header>
+            <div class="bot-info">
+                <div class="bot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bot-status">
+                    <h1 id="ui-title">SpeedPage Dev-Bot</h1>
+                    <small><span class="status-dot"></span> Online Assistant</small>
+                </div>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+            </div>
+        </header>
+
         <div id="chat-window">
-            <div class="msg bot">Selam! Ben SpeedPage asistanı. Market listesini görmek için "market" yazabilirsin!
+            <!-- Messages will appear here -->
+        </div>
+
+        <div id="typing" class="typing-indicator">
+            <span id="ui-typing">Asistan yazıyor</span><span>.</span><span>.</span><span>.</span>
+        </div>
+
+        <div class="controls">
+            <div class="quick-actions">
+                <button class="action-btn" onclick="sendQuick('market')"><i class="fas fa-shopping-cart"></i> <span
+                        id="btn-market">Market</span></button>
+                <button class="action-btn" onclick="sendQuick('kategoriler')"><i class="fas fa-folder-tree"></i> <span
+                        id="btn-files">Dosyalar</span></button>
+                <button class="action-btn" onclick="openWizard()"><i class="fas fa-magic"></i> <span
+                        id="btn-wizard">Sihirbaz</span></button>
+                <button class="action-btn" onclick="sendQuick('şablon')"><i class="fas fa-file-code"></i> <span
+                        id="btn-template">Şablon</span></button>
+            </div>
+            <div class="guide-container">
+                <select id="fileSelect">
+                    <option value="" id="ui-fileGuide">🔍 Dosya Rehberi...</option>
+                </select>
             </div>
         </div>
-        <div id="typing" class="typing">Asistan yazıyor...</div>
+
         <div id="input-area">
             <input type="text" id="userInput" placeholder="Bir şey sor..." autocomplete="off">
-            <button onclick="sendMessage()">➤</button>
+            <button class="send-btn" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
-        <div class="quick-btns">
-            <button class="q-btn" onclick="sendQuick('market')">🛒 Market</button>
-            <button class="q-btn" onclick="sendQuick('kategoriler')">🗂️ Dosyalar</button>
-            <button class="q-btn" onclick="openWizard()">🧙‍♂️ Sihirbaz</button>
-            <button class="q-btn" onclick="sendQuick('şablon')">📄 module Şablonu</button>
+    </div>
 
-        </div>
-
-        <div id="overlay" class="overlay" onclick="closeWizard()"></div>
-        <div id="modal">
-            <h3>🧙‍♂️ Modül Sihirbazı</h3>
+    <!-- Wizard Modal -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeWizard()">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <h3 id="w-title">Modül Sihirbazı</h3>
             <input type="text" id="m_name" placeholder="Modül Adı (örn: my-plugin)">
             <input type="text" id="m_title" placeholder="Görünür Başlık">
             <select id="m_perm">
-                <option value="admin">Admin Yetkisi</option>
-                <option value="editor">Editör Yetkisi</option>
-                <option value="">Herkes</option>
+                <option value="admin" id="w-perm-admin">Admin Yetkisi</option>
+                <option value="editor" id="w-perm-editor">Editör Yetkisi</option>
+                <option value="" id="w-perm-public">Herkes</option>
             </select>
-            <button class="q-btn" style="width:100%" onclick="generateModuleJSON()">Oluştur & Gönder</button>
+            <button class="send-btn" style="width:100%" onclick="generateModuleJSON()">
+                <span id="w-submit">Oluştur & Gönder</span>
+            </button>
         </div>
     </div>
 
     <script>
         let projectData = {};
+        let currentLang = 'tr';
 
-        fetch('./proje.json')
-            .then(response => response.json())
-            .then(data => {
-                projectData = data;
-                // ... diğer işlemler
+        async function init() {
+            try {
+                const response = await fetch('proje.json');
+                projectData = await response.json();
+
+                updateUIStrings();
+                setupFileGuide();
+
+                // Welcome message
+                addMessage(projectData.ui[currentLang].welcome, 'bot');
+            } catch (error) {
+                console.error("Initialization failed:", error);
+            }
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
             });
+            updateUIStrings();
+            setupFileGuide();
+            addMessage(lang === 'tr' ? "Dil Türkçe olarak değiştirildi." : "Language changed to English.", 'bot');
+        }
+
+        function updateUIStrings() {
+            const ui = projectData.ui[currentLang];
+            document.getElementById('ui-title').innerText = ui.title;
+            document.getElementById('userInput').placeholder = ui.inputPlaceholder;
+            document.getElementById('btn-market').innerText = ui.marketBtn;
+            document.getElementById('btn-files').innerText = ui.filesBtn;
+            document.getElementById('btn-wizard').innerText = ui.wizardBtn;
+            document.getElementById('btn-template').innerText = ui.templateBtn;
+            document.getElementById('ui-typing').innerText = ui.typing.replace('...', '');
+            document.getElementById('ui-fileGuide').innerText = ui.fileGuide;
+
+            // Wizard strings
+            document.getElementById('w-title').innerText = ui.wizardTitle;
+            document.getElementById('m_name').placeholder = ui.wizardName;
+            document.getElementById('m_title').placeholder = ui.wizardHeader;
+            document.getElementById('w-perm-admin').innerText = ui.wizardPermAdmin;
+            document.getElementById('w-perm-editor').innerText = ui.wizardPermEditor;
+            document.getElementById('w-perm-public').innerText = ui.wizardPermPublic;
+            document.getElementById('w-submit').innerText = ui.wizardSubmit;
+        }
+
+        function setupFileGuide() {
+            const select = document.getElementById('fileSelect');
+            const placeholder = document.getElementById('ui-fileGuide');
+            select.innerHTML = '';
+            select.appendChild(placeholder);
+
+            if (!projectData.faq) return;
+
+            const files = [...new Set(projectData.faq.map(item => item.file))];
+            files.forEach(f => {
+                const opt = document.createElement('option');
+                opt.value = f;
+                opt.text = f;
+                select.appendChild(opt);
+            });
+
+            select.onchange = (e) => {
+                if (e.target.value) {
+                    const found = projectData.faq.find(item => item.file === e.target.value);
+                    addMessage(`<b>${e.target.value}</b>:`, 'user');
+                    addMessageByObject(found);
+                    select.value = '';
+                }
+            };
+        }
 
         const inputField = document.getElementById('userInput');
         const chatWindow = document.getElementById('chat-window');
@@ -257,17 +577,13 @@
             inputField.value = '';
             typingIndicator.style.display = 'block';
 
-            // KRİTİK: await ekledik ki market verisi gelene kadar beklesin
             const response = await findResponse(text);
 
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
-
-                // Eğer gelen yanıt bir obje ise (FAQ'dan gelmişse)
                 if (typeof response === 'object' && response.answer) {
-                    addMessage(response.answer, 'bot', response.file);
+                    addMessageByObject(response);
                 } else {
-                    // Eğer düz metin ise (Market listesi veya fallback)
                     addMessage(response, 'bot');
                 }
             }, 600);
@@ -276,118 +592,100 @@
         async function findResponse(msg) {
             const lowerMsg = msg.toLowerCase();
 
-            if (lowerMsg.includes("market") || lowerMsg.includes("liste")) {
+            // Market / Marketplace commands
+            if (lowerMsg.includes("market") || lowerMsg.includes("store") || lowerMsg.includes("liste") || lowerMsg.includes("shop")) {
                 return await checkMarket();
             }
-            // findResponse içine eklenebilir
-            if (lowerMsg.includes("dosyalar") || lowerMsg.includes("kategori")) {
-                return `<b>🗂️ Sistem Mimarisi:</b><br><br>
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; font-size:0.8rem;">
-        <div style="background:#fff; padding:5px; border-radius:5px;"><b>🔒 Güvenlik:</b> auth.php, captcha_lib.php</div>
-        <div style="background:#fff; padding:5px; border-radius:5px;"><b>🗄️ Veri:</b> db.php, db_switch.php</div>
-        <div style="background:#fff; padding:5px; border-radius:5px;"><b>🎨 Tema:</b> header.php, style.css</div>
-        <div style="background:#fff; padding:5px; border-radius:5px;"><b>🧠 Yapay Zeka:</b> AiCore.php, ai-panel.php</div>
-    </div>`;
+
+            // Architecture / Files commands
+            if (lowerMsg.includes("dosyalar") || lowerMsg.includes("files") || lowerMsg.includes("kategori") || lowerMsg.includes("arch")) {
+                const isTr = currentLang === 'tr';
+                return `<b>${isTr ? '🗂️ Sistem Mimarisi' : '🗂️ System Architecture'}:</b><br><br>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:0.85rem;">
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🔒 ${isTr ? 'Güvenlik' : 'Security'}</b><br>auth.php, captcha_lib.php</div>
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🗄️ ${isTr ? 'Veri' : 'Data'}</b><br>db.php, db_switch.php</div>
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🎨 ${isTr ? 'Tema' : 'Theme'}</b><br>header.php, style.css</div>
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🧠 ${isTr ? 'Yapay Zeka' : 'A.I'}</b><br>AiCore.php, ai-panel.php</div>
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🚀 ${isTr ? 'Sistem' : 'System'}</b><br>index.php, settings.php, page.php</div>
+                    <div style="background:var(--bot-bubble); padding:10px; border-radius:12px; border:1px solid var(--glass-border);"><b>🛠️ ${isTr ? 'Kurulum' : 'Install'}</b><br>install.php, manifest.json</div>
+                </div>`;
             }
 
-            // findResponse içine eklenebilir
-            if (lowerMsg.includes("yeni modül oluştur") || lowerMsg.includes("sihirbaz")) {
-                const wizardTemplate = {
-                    name: "yeni-modul",
-                    title: "Yeni Modül",
-                    version: "1.0.0",
-                    permissions: ["admin"], // RBAC desteği
-                    db_setup: { install: "setup.php", uninstall: "cleanup.php" }, // Yaşam döngüsü
-                    admin_menu: { title: "Yönetim", url: "admin-panel.php", icon: "fa-tools" }
+            // Template / şablon commands
+            if (lowerMsg.includes("şablon") || lowerMsg.includes("template") || lowerMsg.includes("example")) {
+                const fullTemplate = {
+                    "name": "ornek-modul",
+                    "title": "Örnek Modül Başlığı",
+                    "version": "1.0.0",
+                    "description": "Modülünüzün ne işe yaradığına dair kısa bir açıklama.",
+                    "author": "Geliştirici Adı",
+                    "php_version": "8.1",
+                    "dependencies": [],
+                    "permissions": ["admin", "editor"],
+                    "is_active": 1,
+                    "icon": "fa-puzzle-piece",
+                    "create_page": true,
+                    "page": "index.php",
+                    "create_menu": true,
+                    "menu_title": "Örnek Modül",
+                    "menu_icon": "fa-star",
+                    "locations": ["navbar"],
+                    "db_setup": {
+                        "install": "setup.php",
+                        "uninstall": "cleanup.php"
+                    },
+                    "admin_menu": {
+                        "title": "Modül Yönetimi",
+                        "url": "admin-panel.php",
+                        "icon": "fa-tools",
+                        "admin_assets": {
+                            "css": ["admin-style.css"],
+                            "js": ["admin-logic.js"]
+                        }
+                    },
+                    "pageassets": {
+                        "css": ["style.css"],
+                        "js": ["frontend-script.js"]
+                    },
+                    "hooks": "hooks.php",
+                    "hooksassets": {
+                        "css": ["global-notifications.css"],
+                        "js": ["global-events.js"]
+                    },
+                    "assets": {
+                        "images": ["logo.png"]
+                    }
                 };
-
-                return `<b>🧙‍♂️ SpeedPage Modül Sihirbazı</b><br>
-    İşte temel yapılandırman! Bu içeriği <code>module.json</code> olarak kaydedebilirsin.<br>
-    <pre style="background:#272822; color:#fff; padding:10px; border-radius:5px; overflow-x:auto; font-size:0.75rem;">
-${JSON.stringify(wizardTemplate, null, 2)}
-    </pre>
-    <br><i>Not: Asset'leri (CSS/JS) module.json üzerinden yönetmeyi unutma!</i>`;
+                return `<b>📄 ${currentLang === 'tr' ? 'Tam module.json Şablonu' : 'Full module.json Template'}:</b><br>
+                <div class="code-block" style="max-height: 300px; overflow-y: auto;">${JSON.stringify(fullTemplate, null, 2)}</div>
+                <br><i>${currentLang === 'tr' ? 'Not: Asset\'leri module.json üzerinden yönetmeyi unutma!' : 'Note: Don\'t forget to manage assets via module.json!'}</i>`;
             }
 
-            if (lowerMsg.includes("şablon") || lowerMsg.includes("örnek modül")) {
-                return `<b>📄 Standart module.json Şablonu:</b><br>
-    <pre style="background: #272822; color: #fff; padding: 10px; border-radius: 5px; font-size: 0.8rem; overflow-x: auto;">
-{
-    "name": "ornek-modul",
-    "title": "Örnek Modül Başlığı",
-    "version": "1.0.0",
-    "description": "Modülünüzün ne işe yaradığına dair kısa bir açıklama.",
-    "author": "Geliştirici Adı",
-    "php_version": "8.1",
-    "dependencies": [],
-    /* --- YETKİLENDİRME (YENİ) --- */
-    "permissions": ["admin", "editor"], // Sadece bu rollere sahip kullanıcılar modüle erişebilir. Boş bırakılırsa herkes erişir.
-    /* --- GÖRÜNÜM VE SAYFA AYARLARI --- */
-    "is_active": 1,
-    "icon": "fa-puzzle-piece",
-    "create_page": true,         // Modül için otomatik bir frontend sayfası oluşturulsun mu?
-    "page": "index.php",        // Frontend sayfasının ana dosyası (modules/ornek-modul/ içinde)
-    "create_menu": true,         // Navbar'a otomatik menü eklensin mi?
-    "menu_title": "Örnek Modül", // Menüde görünecek isim
-    "menu_icon": "fa-star",      // Menü simgesi (FontAwesome)
-    "locations": ["navbar"],     // Menünün görüneceği yerler (navbar, footer, sidebar vb.)
-    /* --- YAŞAM DÖNGÜSÜ SCRIPTLERİ (YENİ) --- */
-    "db_setup": {
-        "install": "setup.php",    // Modül yüklendiğinde otomatik çalıştırılacak PHP dosyası (Tablo oluşturma vb.)
-        "uninstall": "cleanup.php"  // Modül silindiğinde temizlik yapacak PHP dosyası
-    },
-    /* --- ADMİN PANELİ AYARLARI --- */
-    "admin_menu": {
-        "title": "Modül Yönetimi",
-        "url": "admin-panel.php", // Admin panel dosyası (modules/ornek-modul/ içinde)
-        "icon": "fa-tools",
-        
-        "admin_assets": {         // SADECE Admin Panelinde yüklenecek dosyalar
-            "css": ["admin-style.css"],
-            "js": ["admin-logic.js"]
-        }
-    },
-    /* --- FRONTEND ASSET AYARLARI --- */
-    "pageassets": {               // SADECE Modülün kendi sayfasında yüklenecek dosyalar
-        "css": ["style.css"],
-        "js": ["frontend-script.js"]
-    },
-    /* --- SİSTEM GENELİ (HOOK) ASSETLERİ --- */
-    "hooks": "hooks.php",         // Hook (kanca) tanımlamalarının olduğu PHP dosyası
-    "hooksassets": {              // SİTENİN HER YERİNDE (Admin dahil) yüklenecek dosyalar
-        "css": ["global-notifications.css"],
-        "js": ["global-events.js"]
-    },
-    /* --- EKSTRA VARLIKLAR --- */
-    "assets": {
-        "images": ["logo.png"]   // cdn/images/ornek-modul/ altına otomatik kopyalanır
-    }
-}
-    </pre>
-    <br><i>Detaylı rehber için 'module.json nedir' yazabilirsin!</i>`;
-            }
+            // FAQ Search
             if (projectData.faq) {
-                // En çok anahtar kelime eşleşmesi olan sonucu bulur
                 let bestMatch = null;
                 let maxHits = 0;
 
                 projectData.faq.forEach(item => {
-                    const hits = item.keywords.filter(k => lowerMsg.includes(k.toLowerCase())).length;
+                    const keys = item.keywords[currentLang] || [];
+                    const hits = keys.filter(k => lowerMsg.includes(k.toLowerCase())).length;
                     if (hits > maxHits) {
                         maxHits = hits;
                         bestMatch = item;
                     }
                 });
 
-                if (bestMatch) return { answer: bestMatch.answer, file: bestMatch.file };
+                if (bestMatch) return {
+                    answer: bestMatch.answer[currentLang],
+                    file: bestMatch.file
+                };
             }
 
-            return projectData.fallback || "Anlayamadım, tekrar eder misin?";
+            return projectData.fallback[currentLang] || (currentLang === 'tr' ? "Anlayamadım..." : "I didn't understand...");
         }
 
         async function checkMarket() {
             try {
-                // İki kaynağı aynı anda (paralel) çekiyoruz
                 const [modRes, themeRes] = await Promise.all([
                     fetch('https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/market.json'),
                     fetch('https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/refs/heads/main/theme/market.json')
@@ -396,58 +694,55 @@ ${JSON.stringify(wizardTemplate, null, 2)}
                 const modules = await modRes.json();
                 const themes = await themeRes.json();
 
-                let list = "<b>🏪 SpeedPage Global Market</b><br><hr>";
+                let list = `<b>🏪 SpeedPage Global Market</b><br><hr style="opacity:0.1; margin:10px 0;">`;
+                list += `<b style="color:var(--primary-light)">📦 ${currentLang === 'tr' ? 'Modüller' : 'Modules'}</b><br>`;
 
-                // --- MODÜLLER BÖLÜMÜ ---
-                list += "<b>📦 Modüller</b><br>";
                 const modItems = Array.isArray(modules) ? modules : (modules.modules || []);
                 if (modItems.length > 0) {
                     modItems.forEach(m => {
-                        list += `• ${m.title || m.name} <small>(v${m.version})</small><br>`;
+                        list += `• ${m.title || m.name} <small style="color:var(--text-muted)">(v${m.version})</small><br>`;
                     });
                 } else {
-                    list += "<i>Modül bulunamadı.</i><br>";
+                    list += `<i>${currentLang === 'tr' ? 'Modül bulunamadı.' : 'No modules found.'}</i><br>`;
                 }
 
-                list += "<br><b>🎨 Temalar</b><br>";
+                list += `<br><b style="color:var(--primary-light)">🎨 ${currentLang === 'tr' ? 'Temalar' : 'Themes'}</b><br>`;
 
-                // --- TEMALAR BÖLÜMÜ ---
                 const themeItems = Array.isArray(themes) ? themes : (themes.themes || themes.modules || []);
                 if (themeItems.length > 0) {
                     themeItems.forEach(t => {
-                        list += `• ${t.title || t.name} <small>(v${t.version})</small><br>`;
+                        list += `• ${t.title || t.name} <small style="color:var(--text-muted)">(v${t.version})</small><br>`;
                     });
                 } else {
-                    list += "<i>Tema bulunamadı.</i><br>";
+                    list += `<i>${currentLang === 'tr' ? 'Tema bulunamadı.' : 'No themes found.'}</i><br>`;
                 }
 
-                list += "<br><i>Yüklemek için admin panelini kullanın!</i>";
+                list += `<br><i style="font-size:0.8rem; color:var(--text-muted)">${currentLang === 'tr' ? 'Yüklemek için admin panelini kullanın!' : 'Use admin panel to install!'}</i>`;
                 return list;
-
             } catch (error) {
-                console.error("Market hatası:", error);
-                return "❌ Market verileri çekilirken bir hata oluştu. Lütfen bağlantınızı kontrol edin.";
+                return "❌ Error fetching market data.";
             }
         }
-        function addMessage(text, side, file = null) {
+
+        function addMessage(text, side) {
             const div = document.createElement('div');
             div.className = `msg ${side}`;
-            let content = text;
+            div.innerHTML = text;
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
 
-            if (file) {
-                // Dosyaya göre rozet rengi ve ismi belirleme
-                let badgeColor = "#666";
-                let badgeText = "Dosya";
+        function addMessageByObject(obj) {
+            const div = document.createElement('div');
+            div.className = `msg bot`;
 
-                if (file.includes('json')) { badgeColor = "#e67e22"; badgeText = "Yapılandırma"; }
-                else if (file.includes('php')) { badgeColor = "#3498db"; badgeText = "Sistem Çekirdeği"; }
-                else if (file.includes('css')) { badgeColor = "#9b59b6"; badgeText = "Tasarım"; }
+            let content = obj.answer;
+            if (typeof content === 'object') content = content[currentLang];
 
-                content += `<div style="margin-top:8px; border-left: 3px solid var(--accent); padding-left:10px;">
-                    <small style="color:#666; display:block;">📖 Teknik Referans:</small>
-                    <span class="file-tag" style="background:#eee; padding:2px 6px; border-radius:4px; font-size:0.7rem;">
-                        📁 src/${file}
-                    </span>
+            if (obj.file) {
+                content += `<div class="file-ref">
+                    <i class="fas fa-file-code"></i>
+                    <span>📁 src/${obj.file}</span>
                 </div>`;
             }
 
@@ -455,37 +750,6 @@ ${JSON.stringify(wizardTemplate, null, 2)}
             chatWindow.appendChild(div);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
-        // 1. Dropdown'u dolduran fonksiyon (Fetch sonuna ekle)
-        function setupFileGuide() {
-            const guideDiv = document.createElement('div');
-            guideDiv.style = "padding: 10px; background: #eee; display: flex; gap: 5px; align-items: center;";
-
-            // Dosya listesini FAQ'dan benzersiz olarak al
-            const files = [...new Set(projectData.faq.map(item => item.file))];
-
-            let options = `<option value="">🔍 Dosya Rehberi...</option>`;
-            files.forEach(f => options += `<option value="${f}">${f}</option>`);
-
-            guideDiv.innerHTML = `<select id="fileSelect" style="flex:1; border-radius:10px; padding:5px;">${options}</select>`;
-            document.getElementById('chat-container').insertBefore(guideDiv, document.getElementById('input-area'));
-
-            document.getElementById('fileSelect').onchange = (e) => {
-                if (e.target.value) {
-                    const found = projectData.faq.find(item => item.file === e.target.value);
-                    addMessage(`<b>${e.target.value}</b> dosyasını sordun:`, 'user');
-                    addMessage(found.answer, 'bot', found.file);
-                }
-            };
-        }
-
-        // fetch işlemini şununla güncelle:
-        fetch('proje.json')
-            .then(r => r.json())
-            .then(d => {
-                projectData = d;
-                setupFileGuide(); // Dropdown'u kur
-            });
-
 
         function sendQuick(cmd) {
             inputField.value = cmd;
@@ -493,18 +757,16 @@ ${JSON.stringify(wizardTemplate, null, 2)}
         }
 
         function openWizard() {
-            document.getElementById('modal').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal-overlay').style.display = 'flex';
         }
 
         function closeWizard() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal-overlay').style.display = 'none';
         }
 
         function generateModuleJSON() {
             const name = document.getElementById('m_name').value || 'new-modul';
-            const title = document.getElementById('m_title').value || 'Yeni Modül';
+            const title = document.getElementById('m_title').value || 'New Module';
             const perm = document.getElementById('m_perm').value;
 
             const template = {
@@ -518,9 +780,13 @@ ${JSON.stringify(wizardTemplate, null, 2)}
             };
 
             closeWizard();
-            addMessage("<b>🧙‍♂️ Sihirbaz Modülünüzü Oluşturdu:</b>", 'bot');
-            addMessage(`<pre style="background:#272822; color:#fff; padding:10px; border-radius:5px; font-size:0.75rem; overflow-x:auto;">${JSON.stringify(template, null, 2)}</pre>`, 'bot');
-        }   
+            const msg = currentLang === 'tr' ? `<b>🧙‍♂️ Sihirbaz Modülünüzü Oluşturdu:</b>` : `<b>🧙‍♂️ Wizard Created Your Module:</b>`;
+            addMessage(msg, 'bot');
+            addMessage(`<div class="code-block">${JSON.stringify(template, null, 2)}</div>`, 'bot');
+        }
+
+        // Run init
+        init();
     </script>
 </body>
 
