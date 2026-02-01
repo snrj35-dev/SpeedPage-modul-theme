@@ -12,6 +12,30 @@
     "description": "Forum sistemi hızlı basit modern"
   },
   {
+    "id": "social",
+    "title": "Social Media Sistemi",
+    "version": "1.0.0",
+    "type": "basic",
+    "author": "snrj35",
+    "date": "2026-02-01",
+    "featured": true,
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/social.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/social.zip",
+    "description": "Websitenizi Social Media Sistemine dönüştürür"
+  },
+  {
+    "id": "quiz",
+    "title": "Test Sistemi",
+    "version": "1.0.0",
+    "type": "basic",
+    "author": "snrj35",
+    "date": "2026-02-01",
+    "featured": false,
+    "image": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/quiz.png",
+    "download_url": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/quiz.zip",
+    "description": "quiz (Test) sistemi hızlı basit modern"
+  },
+  {
     "id": "slider",
     "title": "Slider Sistemi",
     "version": "1.0.0",
