@@ -1,10 +1,19 @@
 {
     "projectInfo": {
         "name": "SpeedPage CMS",
-        "version": "v0.3 Alpha",
+        "version": "v0.4",
         "tech": "PHP 8.3+, SQLite/MySQL, SPA",
         "status": "Live/Remote",
-        "repo": "SpeedPage-modul-theme"
+        "repo": "SpeedPage-modul-theme",
+        "marketSources": {
+            "modules": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/market.json",
+            "themes": "https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/market.json"
+        },
+        "legacyFiles": [
+            "menu-panel.php",
+            "admin/menu-panel.php",
+            "market.json"
+        ]
     },
     "ui": {
         "tr": {

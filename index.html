@@ -414,6 +414,59 @@
         .markdown-table th {
             background: rgba(255, 255, 255, 0.05);
         }
+
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow: auto;
+                align-items: flex-start;
+            }
+
+            #app-container {
+                height: calc(100vh - 20px);
+                margin: 10px;
+                border-radius: 18px;
+            }
+
+            header {
+                padding: 14px;
+                gap: 10px;
+            }
+
+            .bot-status h1 {
+                font-size: 1rem;
+            }
+
+            .quick-actions {
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+
+            .action-btn {
+                flex: 1 1 calc(50% - 8px);
+                justify-content: center;
+            }
+
+            #chat-window {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .msg {
+                max-width: 92%;
+                font-size: 0.9rem;
+            }
+
+            .controls {
+                padding: 0 14px 10px 14px;
+            }
+
+            #input-area {
+                padding: 14px;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -489,24 +542,41 @@
 
     <script>
         let projectData = {};
-        let currentLang = 'tr';
+        let currentLang = (navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en';
 
         async function init() {
             try {
                 const response = await fetch('proje.json');
+                if (!response.ok) {
+                    throw new Error(`proje.json fetch failed: ${response.status}`);
+                }
                 projectData = await response.json();
+                if (!projectData.ui || !projectData.ui.tr || !projectData.ui.en) {
+                    throw new Error('Invalid project data schema');
+                }
+
+                if (!projectData.ui[currentLang]) {
+                    currentLang = 'tr';
+                }
 
                 updateUIStrings();
                 setupFileGuide();
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.innerText.toLowerCase() === currentLang);
+                });
 
                 // Welcome message
                 addMessage(projectData.ui[currentLang].welcome, 'bot');
             } catch (error) {
                 console.error("Initialization failed:", error);
+                addMessage(currentLang === 'tr'
+                    ? 'Başlatma hatası: proje.json yüklenemedi.'
+                    : 'Initialization error: failed to load proje.json.', 'bot');
             }
         }
 
         function setLang(lang) {
+            if (!projectData.ui || !projectData.ui[lang]) return;
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
@@ -517,6 +587,7 @@
         }
 
         function updateUIStrings() {
+            if (!projectData.ui || !projectData.ui[currentLang]) return;
             const ui = projectData.ui[currentLang];
             document.getElementById('ui-title').innerText = ui.title;
             document.getElementById('userInput').placeholder = ui.inputPlaceholder;
@@ -545,7 +616,7 @@
 
             if (!projectData.faq) return;
 
-            const files = [...new Set(projectData.faq.map(item => item.file))];
+            const files = [...new Set(projectData.faq.map(item => item.file).filter(Boolean))].sort();
             files.forEach(f => {
                 const opt = document.createElement('option');
                 opt.value = f;
@@ -556,7 +627,7 @@
             select.onchange = (e) => {
                 if (e.target.value) {
                     const found = projectData.faq.find(item => item.file === e.target.value);
-                    addMessage(`<b>${e.target.value}</b>:`, 'user');
+                    addMessage(`${e.target.value}:`, 'user');
                     addMessageByObject(found);
                     select.value = '';
                 }
@@ -591,6 +662,7 @@
 
         async function findResponse(msg) {
             const lowerMsg = msg.toLowerCase();
+            const words = lowerMsg.split(/[^a-zA-Z0-9çğıöşüÇĞİÖŞÜ_-]+/).filter(Boolean);
 
             // Market / Marketplace commands
             if (lowerMsg.includes("market") || lowerMsg.includes("store") || lowerMsg.includes("liste") || lowerMsg.includes("shop")) {
@@ -664,18 +736,26 @@
             // FAQ Search
             if (projectData.faq) {
                 let bestMatch = null;
-                let maxHits = 0;
+                let maxHits = -1;
 
                 projectData.faq.forEach(item => {
                     const keys = item.keywords[currentLang] || [];
-                    const hits = keys.filter(k => lowerMsg.includes(k.toLowerCase())).length;
+                    let hits = 0;
+                    keys.forEach(k => {
+                        const key = String(k || '').toLowerCase();
+                        if (!key) return;
+                        if (lowerMsg.includes(key)) hits += 3;
+                        words.forEach(w => {
+                            if (w && key.includes(w)) hits += 1;
+                        });
+                    });
                     if (hits > maxHits) {
                         maxHits = hits;
                         bestMatch = item;
                     }
                 });
 
-                if (bestMatch) return {
+                if (bestMatch && maxHits > 0) return {
                     answer: bestMatch.answer[currentLang],
                     file: bestMatch.file
                 };
@@ -685,11 +765,23 @@
         }
 
         async function checkMarket() {
+            let timeout = null;
             try {
+                const modUrl = projectData?.projectInfo?.marketSources?.modules ||
+                    'https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/market.json';
+                const themeUrl = projectData?.projectInfo?.marketSources?.themes ||
+                    'https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/theme/market.json';
+
+                const controller = new AbortController();
+                timeout = setTimeout(() => controller.abort(), 12000);
                 const [modRes, themeRes] = await Promise.all([
-                    fetch('https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/main/modul/market.json'),
-                    fetch('https://raw.githubusercontent.com/snrj35-dev/SpeedPage-modul-theme/refs/heads/main/theme/market.json')
+                    fetch(modUrl, { signal: controller.signal }),
+                    fetch(themeUrl, { signal: controller.signal })
                 ]);
+                if (timeout) clearTimeout(timeout);
+                if (!modRes.ok || !themeRes.ok) {
+                    throw new Error(`Market HTTP error: ${modRes.status}/${themeRes.status}`);
+                }
 
                 const modules = await modRes.json();
                 const themes = await themeRes.json();
@@ -700,7 +792,13 @@
                 const modItems = Array.isArray(modules) ? modules : (modules.modules || []);
                 if (modItems.length > 0) {
                     modItems.forEach(m => {
-                        list += `• ${m.title || m.name} <small style="color:var(--text-muted)">(v${m.version})</small><br>`;
+                        const title = escapeHtml(m.title || m.name || 'Unknown');
+                        const version = escapeHtml(m.version || '?');
+                        const link = pickItemLink(m);
+                        const linkHtml = link
+                            ? ` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${currentLang === 'tr' ? '[İndir]' : '[Download]'}</a>`
+                            : '';
+                        list += `• ${title} <small style="color:var(--text-muted)">(v${version})</small>${linkHtml}<br>`;
                     });
                 } else {
                     list += `<i>${currentLang === 'tr' ? 'Modül bulunamadı.' : 'No modules found.'}</i><br>`;
@@ -711,7 +809,13 @@
                 const themeItems = Array.isArray(themes) ? themes : (themes.themes || themes.modules || []);
                 if (themeItems.length > 0) {
                     themeItems.forEach(t => {
-                        list += `• ${t.title || t.name} <small style="color:var(--text-muted)">(v${t.version})</small><br>`;
+                        const title = escapeHtml(t.title || t.name || 'Unknown');
+                        const version = escapeHtml(t.version || '?');
+                        const link = pickItemLink(t);
+                        const linkHtml = link
+                            ? ` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${currentLang === 'tr' ? '[İndir]' : '[Download]'}</a>`
+                            : '';
+                        list += `• ${title} <small style="color:var(--text-muted)">(v${version})</small>${linkHtml}<br>`;
                     });
                 } else {
                     list += `<i>${currentLang === 'tr' ? 'Tema bulunamadı.' : 'No themes found.'}</i><br>`;
@@ -720,30 +824,56 @@
                 list += `<br><i style="font-size:0.8rem; color:var(--text-muted)">${currentLang === 'tr' ? 'Yüklemek için admin panelini kullanın!' : 'Use admin panel to install!'}</i>`;
                 return list;
             } catch (error) {
-                return "❌ Error fetching market data.";
+                return currentLang === 'tr'
+                    ? "❌ Market verileri alınamadı. Bağlantı veya JSON formatını kontrol et."
+                    : "❌ Could not fetch market data. Check network and JSON format.";
+            } finally {
+                if (timeout) clearTimeout(timeout);
             }
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
         function addMessage(text, side) {
             const div = document.createElement('div');
             div.className = `msg ${side}`;
-            div.innerHTML = text;
+            if (side === 'user') {
+                div.textContent = text;
+            } else {
+                div.innerHTML = text;
+            }
             chatWindow.appendChild(div);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function addMessageByObject(obj) {
+            if (!obj || !obj.answer) {
+                addMessage(currentLang === 'tr' ? 'Bu dosya için açıklama bulunamadı.' : 'No description found for this file.', 'bot');
+                return;
+            }
+
             const div = document.createElement('div');
             div.className = `msg bot`;
 
             let content = obj.answer;
             if (typeof content === 'object') content = content[currentLang];
+            content = escapeHtml(content).replace(/\n/g, '<br>');
 
             if (obj.file) {
+                const legacyInfo = isLegacyFile(obj.file)
+                    ? `<div style="margin-top:8px; font-size:0.78rem; color:#fbbf24;">⚠️ ${currentLang === 'tr' ? 'Bu dosya eski/legacy olabilir.' : 'This file reference may be legacy.'}</div>`
+                    : '';
                 content += `<div class="file-ref">
                     <i class="fas fa-file-code"></i>
-                    <span>📁 src/${obj.file}</span>
-                </div>`;
+                    <span>📁 src/${escapeHtml(obj.file)}</span>
+                </div>${legacyInfo}`;
             }
 
             div.innerHTML = content;
@@ -783,6 +913,23 @@
             const msg = currentLang === 'tr' ? `<b>🧙‍♂️ Sihirbaz Modülünüzü Oluşturdu:</b>` : `<b>🧙‍♂️ Wizard Created Your Module:</b>`;
             addMessage(msg, 'bot');
             addMessage(`<div class="code-block">${JSON.stringify(template, null, 2)}</div>`, 'bot');
+        }
+
+        function pickItemLink(item) {
+            const keys = ['download_url', 'zip_url', 'download', 'url', 'repo_url', 'github', 'link'];
+            for (const key of keys) {
+                const value = item?.[key];
+                if (typeof value === 'string' && /^https?:\/\//i.test(value)) {
+                    return value;
+                }
+            }
+            return '';
+        }
+
+        function isLegacyFile(fileRef) {
+            const list = projectData?.projectInfo?.legacyFiles || [];
+            const normalizedRef = String(fileRef || '').toLowerCase();
+            return list.some(entry => normalizedRef.includes(String(entry).toLowerCase()));
         }
 
         // Run init
